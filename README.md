@@ -1,3 +1,3 @@
-# Server de Tuttifrutti Store
+# Server de Tuttifrutti Store
 
 **DB:** MongoDB
