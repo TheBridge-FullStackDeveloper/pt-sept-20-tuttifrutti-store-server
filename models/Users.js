@@ -10,31 +10,36 @@ const UserSchema = new Schema({
       lowercase: true,
     },
     surname: {
-      type: String,
-      required: true,
-      lowercase: true,
+        type: String,
+        required: true,
+        lowercase: true,
     },
-  },
+},
 
-  address: {
+address: {
     street: {
-      type: String,
+        type: String,
+        lowercase: true,
     },
     houseNum: {
-      type: Number,
+        type: Number,
+        lowercase: true,
     },
     aptNum: {
-      type: String,
+        type: String,
+        lowercase: true,
     },
     zipcode: {
-      type: Number,
-      max: 6,
+        type: Number,
+        max: 6,
     },
     city: {
-      type: String,
+        type: String,
+        lowercase: true,
     },
     country: {
-      type: String,
+        type: String,
+        lowercase: true,
     },
   },
 
