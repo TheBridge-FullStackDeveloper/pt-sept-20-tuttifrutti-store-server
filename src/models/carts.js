@@ -10,21 +10,24 @@ const CartsSchema = newSchema ({
     },
 
     userId: {
-        type: string,
+        type: mongoose.Schema.Types.ObjectId,
+        ref:"Users",
         required: true,
     },
 
-    products: {
-        type: string,
+    products: [
+        {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Products",
         required: true,
     },
-
+    ],
     
          timestamp: true,
     
     });
 
 
-const model = mongoose.model('user', CartsShema);
+const model = mongoose.model('Users', CartsShema);
 
 module.exports = model;
