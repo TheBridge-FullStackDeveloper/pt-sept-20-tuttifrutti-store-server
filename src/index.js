@@ -1,9 +1,9 @@
-const express = require('express')
+const express = require('express');
 
-require("./configs/db");
+require('./configs/db');
 
-const app = express()
+const app = express();
 
 app.listen(3000, () => {
-  console.log('App listening in http://localhost:3000')
-})
+  console.log('App listening in http://localhost:3000');
+});
