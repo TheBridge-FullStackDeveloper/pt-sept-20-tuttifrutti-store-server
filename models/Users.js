@@ -3,7 +3,6 @@ const { Schema } = mongoose;
 
 const UserSchema = new Schema(
   {
-    _id: mongoose.Schema.Types.ObjectId,
     name: {
       type: String,
       required: true,
@@ -14,7 +13,6 @@ const UserSchema = new Schema(
       required: true,
       lowercase: true,
     },
-
     street: {
       type: String,
       lowercase: true,
@@ -39,7 +37,6 @@ const UserSchema = new Schema(
       type: String,
       lowercase: true,
     },
-
     email: {
       type: String,
       trim: true,
@@ -53,23 +50,19 @@ const UserSchema = new Schema(
       },
       required: [true, "Email required"],
     },
-
     password: {
       type: String,
       required: true,
       min: 6,
       max: 20,
     },
-
     phone: {
       type: Number,
       max: 12,
     },
-
     active: {
       type: Boolean,
     },
-
     creditCard: {
       type: Number,
       min: 16,
