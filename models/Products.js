@@ -40,6 +40,9 @@ const ProductSchema = new Schema({
     weight: {
         type: Number, 
     }
+},
+{
+  timestamps: true, 
 });
 
 const model = mongoose.model("Products", ProductSchema);
