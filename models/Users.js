@@ -1,79 +1,75 @@
 const mongoose = require("mongoose");
 const { Schema } = mongoose;
 
-const UserSchema = new Schema({
-  _id: mongoose.Schema.Types.ObjectId,
-  client: {
+const UserSchema = new Schema(
+  {
+    _id: mongoose.Schema.Types.ObjectId,
     name: {
       type: String,
       required: true,
       lowercase: true,
     },
     surname: {
-        type: String,
-        required: true,
-        lowercase: true,
+      type: String,
+      required: true,
+      lowercase: true,
     },
-},
 
-address: {
     street: {
-        type: String,
-        lowercase: true,
+      type: String,
+      lowercase: true,
     },
     houseNum: {
-        type: Number,
-        lowercase: true,
+      type: Number,
+      lowercase: true,
     },
     aptNum: {
-        type: String,
-        lowercase: true,
+      type: String,
+      lowercase: true,
     },
     zipcode: {
-        type: Number,
-        max: 6,
+      type: Number,
+      max: 6,
     },
     city: {
-        type: String,
-        lowercase: true,
+      type: String,
+      lowercase: true,
     },
     country: {
-        type: String,
-        lowercase: true,
+      type: String,
+      lowercase: true,
     },
-  },
 
-  email: {
-    type: String,
-    trim: true,
-    lowercase: true,
-    unique: true,
-    validate: {
-      validator: function (v) {
-        return /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(v);
+    email: {
+      type: String,
+      trim: true,
+      lowercase: true,
+      unique: true,
+      validate: {
+        validator: function (v) {
+          return /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(v);
+        },
+        message: "Please enter a valid email",
       },
-      message: "Please enter a valid email",
+      required: [true, "Email required"],
     },
-    required: [true, "Email required"],
-  },
 
-  password: {
-    type: String,
-    required: true,
-    min: 6,
-    max: 20,
-  },
+    password: {
+      type: String,
+      required: true,
+      min: 6,
+      max: 20,
+    },
 
-  phone: {
-    type: Number,
-    max: 12,
-  },
+    phone: {
+      type: Number,
+      max: 12,
+    },
 
-  active: {
-    type: Boolean,
-  },
+    active: {
+      type: Boolean,
+    },
 
-  paymentMethod: {
     creditCard: {
       type: Number,
       min: 16,
@@ -83,10 +79,9 @@ address: {
       type: Date,
     },
   },
-},
-{
-  timestamps: true, 
-}
+  {
+    timestamps: true,
+  }
 );
 
 const model = mongoose.model("Users", UserSchema);
