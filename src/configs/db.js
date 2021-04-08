@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
 
-const DB_URI = 'mongodb://localhost:27017/test';
+const DB_URI = 'mongodb://localhost/tuttifrutti';
 
 mongoose
   .connect(DB_URI , {
@@ -9,9 +9,9 @@ mongoose
     useFindAndModify: false,
     useCreateIndex: true,
   })
-
   .then(() => console.info("succesfully connected to mongoDB"))
   .catch((error) => {
+    console.log(error)
     console.info("> error trying to connect to mongoDB", error.message);
     process.exit(0);
   });

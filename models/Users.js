@@ -26,8 +26,7 @@ const UserSchema = new Schema(
       lowercase: true,
     },
     zipcode: {
-      type: Number,
-      max: 6,
+      type: String,
     },
     city: {
       type: String,
@@ -53,20 +52,19 @@ const UserSchema = new Schema(
     password: {
       type: String,
       required: true,
-      min: 6,
-      max: 20,
+      minlength: 6,
+      maxlength: 20,
     },
     phone: {
       type: Number,
-      max: 12,
+      maxlength: 9
     },
     active: {
       type: Boolean,
     },
     creditCard: {
-      type: Number,
-      min: 16,
-      max: 16,
+      type: String,
+      maxlength: 16,
     },
     expirationDate: {
       type: Date,
