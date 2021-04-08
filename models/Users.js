@@ -83,7 +83,11 @@ address: {
       type: Date,
     },
   },
-});
+},
+{
+  timestamps: true, 
+}
+);
 
 const model = mongoose.model("Users", UserSchema);
 
