@@ -9,12 +9,11 @@ const OrderSchema = new Schema(
         ref: "Products",
       },
     ],
-    userId: [
+    userId: 
       {
         type: mongoose.Schema.Types.ObjectId,
         ref: "Users",
       },
-    ],
     totalPrice: {
       type: Number,
       required: true,
@@ -28,8 +27,6 @@ const OrderSchema = new Schema(
     timestamps: true,
   }
 );
-
-// haria falta un virtual?
 
 const model = monggoose.model("Orders", OrderSchema);
 
