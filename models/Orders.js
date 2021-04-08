@@ -9,17 +9,18 @@ const OrderSchema = new Schema(
         ref: "Products",
       },
     ],
-    userId: 
-      {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "Users",
-      },
+    userId: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Users",
+    },
     totalPrice: {
       type: Number,
       required: true,
     },
     state: {
       type: String,
+      enum: ["paid", "pending-payment", "sent", "delivered"],
+      default: "pending-payment",
       required: true,
     },
   },
