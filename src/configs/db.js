@@ -1,24 +1,24 @@
-const mongoose = require("mongoose");
+const mongoose = require('mongoose');
 
-const DB_URI = 'mongodb://localhost:27017/test';
+const DB_URI = 'mongodb://localhost:27017/tuttifrutti';
 
 mongoose
-  .connect(DB_URI , {
+  .connect(DB_URI, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
     useFindAndModify: false,
-    useCreateIndex: true,
+    useCreateIndex: true
   })
-
-  .then(() => console.info("succesfully connected to mongoDB"))
+  .then(() => console.info('succesfully connected to mongoDB'))
   .catch((error) => {
-    console.info("> error trying to connect to mongoDB", error.message);
+    console.log(error);
+    console.info('> error trying to connect to mongoDB', error.message);
     process.exit(0);
   });
 
-process.on("SIGINT", () => {
+process.on('SIGINT', () => {
   mongoose.connection.close(() => {
-    console.info("> mongoose succesfully disconnected");
+    console.info('> mongoose succesfully disconnected');
     process.exit(0);
   });
 });
