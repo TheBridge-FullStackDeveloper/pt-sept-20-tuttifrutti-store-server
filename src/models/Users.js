@@ -1,4 +1,4 @@
-const mongoose = require("mongoose");
+const mongoose = require('mongoose');
 const { Schema } = mongoose;
 
 const UserSchema = new Schema(
@@ -6,36 +6,36 @@ const UserSchema = new Schema(
     name: {
       type: String,
       required: true,
-      lowercase: true,
+      lowercase: true
     },
     surname: {
       type: String,
       required: true,
-      lowercase: true,
+      lowercase: true
     },
     street: {
       type: String,
-      lowercase: true,
+      lowercase: true
     },
     houseNum: {
       type: Number,
-      lowercase: true,
+      lowercase: true
     },
     aptNum: {
       type: String,
-      lowercase: true,
+      lowercase: true
     },
     zipcode: {
       type: Number,
-      max: 6,
+      max: 6
     },
     city: {
       type: String,
-      lowercase: true,
+      lowercase: true
     },
     country: {
       type: String,
-      lowercase: true,
+      lowercase: true
     },
     email: {
       type: String,
@@ -44,39 +44,39 @@ const UserSchema = new Schema(
       unique: true,
       validate: {
         validator: function (v) {
-          return /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(v);
+          return /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/.test(v);
         },
-        message: "Please enter a valid email",
+        message: 'Please enter a valid email'
       },
-      required: [true, "Email required"],
+      required: [true, 'Email required']
     },
     password: {
       type: String,
       required: true,
       min: 6,
-      max: 20,
+      max: 20
     },
     phone: {
       type: Number,
-      max: 12,
+      max: 12
     },
     active: {
-      type: Boolean,
+      type: Boolean
     },
     creditCard: {
       type: Number,
       min: 16,
-      max: 16,
+      max: 16
     },
     expirationDate: {
-      type: Date,
-    },
+      type: Date
+    }
   },
   {
-    timestamps: true,
+    timestamps: true
   }
 );
 
-const model = mongoose.model("Users", UserSchema);
+const model = mongoose.model('Users', UserSchema);
 
 module.exports = model;

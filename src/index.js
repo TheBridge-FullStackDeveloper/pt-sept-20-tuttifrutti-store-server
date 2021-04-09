@@ -1,5 +1,7 @@
+require('dotenv').config();
 const express = require('express');
 const cors = require('cors');
+const { PORT } = require('./config/constants');
 
 require('./configs/db');
 
@@ -23,5 +25,5 @@ app.use((error, _, res, __) => {
   });
 });
 
-const PORT = 3001;
+// const PORT = 3001;
 app.listen(PORT, () => console.info(`> Listening at http://localhost:${PORT}`));
