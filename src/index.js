@@ -11,8 +11,7 @@ app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
-// aqui las urls...
-// app.use('/products', require).....
+app.use('/tuttifrutti/api/', require('./routes'));
 
 app.use((_, __, next) => {
   next(new Error('Path Not Found'));
