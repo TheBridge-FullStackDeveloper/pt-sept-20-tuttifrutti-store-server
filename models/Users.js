@@ -62,8 +62,11 @@ const UserSchema = new Schema(
       type: String,
       maxlength: 16
     },
-    expirationDate: {
-      type: Date
+    monthExpirationDate: {
+      type: Number
+    },
+    yearExpirationDate: {
+      type: Number
     }
   },
   {

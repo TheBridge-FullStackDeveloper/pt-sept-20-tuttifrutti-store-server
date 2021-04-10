@@ -35,7 +35,8 @@ const createUsers = async (rowsCount, seed) => {
     const phoneNumber = formatNonDigits(phone.phoneNumber());
     const isActive = active();
     const creditCard = formatNonDigits(creditCardNumber().substring(0, 16));
-    const expirationDate = future();
+    const monthExpirationDate = future().getMonth();
+    const yearExpirationDate = future().getFullYear();
 
     users.push(
       new UserModel({
@@ -52,7 +53,8 @@ const createUsers = async (rowsCount, seed) => {
         phone: phoneNumber,
         active: isActive,
         creditCard,
-        expirationDate
+        monthExpirationDate,
+        yearExpirationDate
       })
     );
   }
