@@ -2,7 +2,7 @@ const router = require('express').Router();
 
 const ProductModel = require('../../models/Products');
 
-router.get('/', async (req, res, next) => {
+router.get('/', async (_, res, next) => {
   try {
     const result = await ProductModel.find({});
 
@@ -25,6 +25,21 @@ router.get('/category/:category', async (req, res, next) => {
     res.status(200).json({
       success: true,
       count: result.length,
+      data: result
+    });
+  } catch (error) {
+    next(error);
+  }
+});
+
+router.get('/:id', async (req, res, next) => {
+  const { id } = req.params;
+
+  try {
+    const result = await ProductModel.findById(id);
+
+    res.status(200).json({
+      success: true,
       data: result
     });
   } catch (error) {
