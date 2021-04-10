@@ -4,7 +4,7 @@ const UserModel = require('../models/Users');
 
 const active = () => Math.random() > 0.5;
 
-const formatNonDigits = (phoneNumber) => Number(phoneNumber.replace(/\D/g, ''));
+const formatNonDigits = (string) => Number(string.replace(/\D/g, ''));
 
 const createUsers = async (rowsCount, seed) => {
   const entries = Array.from({ length: rowsCount }, (_, i) => i);
@@ -34,7 +34,7 @@ const createUsers = async (rowsCount, seed) => {
     const pswd = password();
     const phoneNumber = formatNonDigits(phone.phoneNumber());
     const isActive = active();
-    const creditCard = formatNonDigits(creditCardNumber());
+    const creditCard = formatNonDigits(creditCardNumber().substring(0, 16));
     const expirationDate = future();
 
     users.push(
