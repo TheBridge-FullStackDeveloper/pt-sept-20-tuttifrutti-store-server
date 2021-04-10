@@ -35,6 +35,36 @@ passport.use(
   )
 );
 
+passport.use(
+  'login',
+  new LocalStrategy(
+    {
+      usernameField: 'email',
+      passwordField: 'password',
+      passReqToCallback: true // Receive req in case more fields are needed when registering user
+    },
+    (req, email, password, done) => {
+      User.findOne({ email })
+        .then((user) => {
+          // If there is no user in DB, register it
+          if (!user) {
+            throw new Error('User does not exist');
+          }
+
+          const userPassword = user.get('password');
+          const isValidPassword = bcrypt.compareSync(password, userPassword);
+
+          if (!isValidPassword) {
+            throw new Error('Incorrect email and password');
+          }
+
+          done(null, user);
+        })
+        .catch((err) => done(err, null));
+    }
+  )
+);
+
 passport.serializeUser((user, done) => {
   done(null, user.id);
 });
