@@ -12,13 +12,11 @@ passport.use(
       passwordField: 'password',
       passReqToCallback: true
     },
-    (req, email, password, done) => {
+    (_req, email, password, done) => {
       User.findOne({ email })
         .then((user) => {
           if (!user) {
-            const salt = bcrypt.genSaltSync(20);
-            const hash = bcrypt.hashSync(password, salt);
-
+            const hash = bcrypt.hashSync(password, 10);
             const newUser = new User({
               email,
               password: hash
