@@ -38,6 +38,8 @@ router.get('/:id', async (req, res, next) => {
   try {
     const result = await ProductModel.findById(id);
 
+    if (!result) throw new Error('product not found');
+
     res.status(200).json({
       success: true,
       data: result
