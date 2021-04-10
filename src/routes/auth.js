@@ -1,6 +1,12 @@
 const router = require('express').Router();
 const passport = require('passport');
 
+const { isAuthenticated } = require('../middlewares/authentication');
+
+router.get('/profile', [isAuthenticated], (req, res) =>
+  res.status(200).json({ data: req.user, success: true })
+);
+
 router.post('/register', (req, res, next) => {
   passport.authenticate('register', (err, user) => {
     if (err) {
