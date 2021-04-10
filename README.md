@@ -2,7 +2,7 @@
 
 **DB:** MongoDB
 
-## Como usar variables de entorno
+## Como usar variables de entorno
 
 Copia en archivo `.env.dist` y cambia el nombre de la copia a `.env`.
 
@@ -13,9 +13,9 @@ PORT=
 HASH_SECRET=
 ```
 
-## Como usar seeds
+## Como usar las seeds
 
-Se han creado dos seeds para poder generar datos de usarios y productos aleatorios.
+Se han creado tres seeds para poder generar datos de usarios y productos aleatorios.
 
 ```js
   npm run db:seeds
