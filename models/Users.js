@@ -5,12 +5,10 @@ const UserSchema = new Schema(
   {
     name: {
       type: String,
-      required: true,
       lowercase: true
     },
     surname: {
       type: String,
-      required: true,
       lowercase: true
     },
     street: {
@@ -51,9 +49,7 @@ const UserSchema = new Schema(
     },
     password: {
       type: String,
-      required: true,
-      minlength: 6,
-      maxlength: 20
+      required: true
     },
     phone: {
       type: Number,
