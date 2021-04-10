@@ -5,12 +5,24 @@ const FavoritesModel = require('../../models/Favorites');
 const { isAuthenticated } = require('../middlewares/authentication');
 
 router.get('/all', [isAuthenticated], async (req, res, next) => {
-  const { id } = req.user;
-
   try {
+    const userFavs = await FavoritesModel.findOne({ userId: req.user });
+
+    if (!userFavs) {
+      const result = await FavoritesModel.create({
+        userId: req.user,
+        products: []
+      });
+
+      res.status(200).json({
+        success: true,
+        data: { products: result.products }
+      });
+    }
+
     const result = await FavoritesModel.findOne(
-      { userId: id },
-      { favorites: 1, _id: 0 }
+      { userId: req.user },
+      { products: 1, _id: 0 }
     );
 
     res.status(200).json({
