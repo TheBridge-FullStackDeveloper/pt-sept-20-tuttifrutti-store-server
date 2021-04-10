@@ -16,7 +16,7 @@ router.post('/register', (req, res, next) => {
       if (loginErr) {
         return res.status(401).json({ data: loginErr.message, success: false });
       }
-      res.status(200).json({ data: user, success: true });
+      res.status(200).json({ data: user.email, success: true });
     });
   })(req, res, next);
 });
@@ -30,7 +30,7 @@ router.post('/login', (req, res, next) => {
       if (loginErr) {
         return res.status(401).json({ data: loginErr.message, success: false });
       }
-      res.status(200).json({ data: req.user, success: true });
+      res.status(200).json({ data: req.user.email, success: true });
     });
   })(req, res, next);
 });
