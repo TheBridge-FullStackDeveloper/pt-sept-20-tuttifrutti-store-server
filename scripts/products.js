@@ -2,6 +2,8 @@ const faker = require('faker');
 
 const ProductModel = require('../models/Products');
 
+const randomizeWeight = () => (Math.random() > 0.5 ? 'kg' : 'g');
+
 const createProducts = async (rowsCount, seed) => {
   const entries = Array.from({ length: rowsCount }, (_, i) => i);
 
@@ -25,6 +27,7 @@ const createProducts = async (rowsCount, seed) => {
     const pictures = [food(), food(), food()];
     const description = commerce.productDescription();
     const weight = float();
+    const weightType = randomizeWeight();
 
     products.push(
       new ProductModel({
@@ -36,7 +39,8 @@ const createProducts = async (rowsCount, seed) => {
         price,
         pictures,
         description,
-        weight
+        weight,
+        weightType
       })
     );
   }
