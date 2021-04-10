@@ -3,6 +3,8 @@ const omitBy = require('lodash/omitBy');
 
 const UserModel = require('../../models/Users');
 
+const { isAuthenticated } = require('../middlewares/authentication');
+
 router.put('/modify/:userId', async (req, res, next) => {
   const { userId } = req.params;
 
@@ -26,6 +28,12 @@ router.put('/modify/:userId', async (req, res, next) => {
   } catch (error) {
     next(error);
   }
+});
+
+router.get('/:userId', [isAuthenticated], async (req, res, next) => {
+  const { userId, name, surname } = req.body;
+
+  res.status(200).json({ success: true, data: { userId, name, surname } });
 });
 
 module.exports = router;
