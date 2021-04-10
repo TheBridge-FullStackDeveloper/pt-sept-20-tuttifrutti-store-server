@@ -1,17 +1,17 @@
-const faker = require("faker");
+const faker = require('faker');
 
-const UserModel = require("../models/Users");
+const UserModel = require('../models/Users');
 
 const active = () => Math.random() > 0.5;
 
-const formatNonDigits = (phoneNumber) => Number(phoneNumber.replace(/\D/g, ""));
+const formatNonDigits = (phoneNumber) => Number(phoneNumber.replace(/\D/g, ''));
 
 const createUsers = async (rowsCount, seed) => {
   const entries = Array.from({ length: rowsCount }, (_, i) => i);
 
   const users = [];
 
-  for (let entry of entries) {
+  for (const entry of entries) {
     seed && faker.seed(seed + entry);
 
     const {
@@ -20,12 +20,12 @@ const createUsers = async (rowsCount, seed) => {
       address,
       internet: { email, password },
       finance: { creditCardNumber },
-      date: { future },
+      date: { future }
     } = faker;
     const firstName = name.firstName();
     const lastName = name.lastName();
     const street = address.streetName();
-    const houseNum = address.streetAddress().split(" ")[0];
+    const houseNum = address.streetAddress().split(' ')[0];
     const aptNum = address.secondaryAddress();
     const zipCode = address.zipCode();
     const city = address.city();
@@ -52,16 +52,23 @@ const createUsers = async (rowsCount, seed) => {
         phone: phoneNumber,
         active: isActive,
         creditCard,
-        expirationDate,
+        expirationDate
       })
     );
   }
 
   await UserModel.insertMany(users);
 
-  console.info("> users inserted!");
+  console.info('> users inserted!');
+};
+
+const dropUsers = async () => {
+  await UserModel.deleteMany({});
+
+  console.info('> users collection deleted!');
 };
 
 module.exports = {
   createUsers,
+  dropUsers
 };
