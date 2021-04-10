@@ -40,6 +40,9 @@ const ProductSchema = new Schema(
     },
     weight: {
       type: Number
+    },
+    weightType: {
+      type: String
     }
   },
   {
