@@ -38,6 +38,9 @@ router.post('/login', (req, res, next) => {
 router.get('/logout', (req, res) => {
   req.logout();
 
-  res.status(200).json({ data: 'OK' });
+  delete req.session;
+  res.clearCookie('express:sess', { path: '/' });
+  res.clearCookie('express:sess.sig', { path: '/' });
+  res.status(200).send('Ok.');
 });
 module.exports = router;
