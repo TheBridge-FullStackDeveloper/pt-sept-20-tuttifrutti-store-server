@@ -2,7 +2,7 @@ const passport = require('passport');
 const LocalStrategy = require('passport-local').Strategy;
 const bcrypt = require('bcrypt');
 
-const User = require('models/Users.js');
+const User = require('../../models/Users');
 
 passport.use(
   'register',
@@ -42,5 +42,5 @@ passport.serializeUser((user, done) => {
 });
 
 passport.deserializeUser((id, done) => {
-    done(null, user.id)
-})
+  done(null, id);
+});
