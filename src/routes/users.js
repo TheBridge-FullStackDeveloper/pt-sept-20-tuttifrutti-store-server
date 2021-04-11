@@ -31,9 +31,11 @@ router.put('/modify/:userId', async (req, res, next) => {
 });
 
 router.get('/:userId', [isAuthenticated], async (req, res, next) => {
-  const { userId, name, surname } = req.body;
+  const { userId } = req.params;
 
-  res.status(200).json({ success: true, data: { userId, name, surname } });
+  const result = await UserModel.findById(userId, { password: 0 });
+
+  res.status(200).json({ success: true, data: result });
 });
 
 module.exports = router;
