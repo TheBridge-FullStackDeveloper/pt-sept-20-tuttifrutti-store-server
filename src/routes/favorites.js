@@ -14,7 +14,7 @@ router.get('/', [isAuthenticated], async (req, res, next) => {
         products: []
       });
 
-      res.status(201).json({
+      return res.status(201).json({
         success: true,
         count: result.products.length,
         data: { products: result.products }
@@ -45,7 +45,7 @@ router.put('/add/:productId', [isAuthenticated], async (req, res, next) => {
         products: [productId]
       });
 
-      res.status(201).json({
+      return res.status(201).json({
         success: true,
         data: result
       });
