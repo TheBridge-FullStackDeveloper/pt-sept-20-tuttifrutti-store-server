@@ -35,7 +35,7 @@ app.use((_, __, next) => {
 });
 
 app.use((error, _, res, __) => {
-  res.status(400).json({
+  res.status(error.code || 400).json({
     success: false,
     message: error.message
   });
