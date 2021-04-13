@@ -14,7 +14,7 @@ router.get('/', [isAuthenticated], async (req, res, next) => {
         products: []
       });
 
-      res.status(200).json({
+      res.status(201).json({
         success: true,
         count: result.products.length,
         data: { products: result.products }
