@@ -18,7 +18,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n    \"email\": \"maude_jacobi@gmail.com\",\r\n    \"password\": \"2J1SdSIqOegBeH_\"\r\n}",
+									"raw": "{\r\n    \"email\": \"pepe9@hotmail.com\",\r\n    \"password\": \"3c8curn8erh\"\r\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -42,13 +42,13 @@
 							"response": []
 						},
 						{
-							"name": "Register User Login",
+							"name": "User Login",
 							"request": {
 								"method": "POST",
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n    \"email\": \"maude_jacobi@gmail.com\",\r\n    \"password\": \"2J1SdSIqOegBeH_\"\r\n}",
+									"raw": "{\r\n    \"email\": \"pepe1@hotmail.com\",\r\n    \"password\": \"3c8curn8erh\"\r\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -72,7 +72,7 @@
 							"response": []
 						},
 						{
-							"name": "Register User Logout",
+							"name": "User Logout",
 							"protocolProfileBehavior": {
 								"disableBodyPruning": true
 							},
