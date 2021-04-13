@@ -36,7 +36,7 @@ router.get('/all', [isAuthenticated], async (req, res, next) => {
   }
 });
 
-router.post('/add/:productId', [isAuthenticated], async (req, res, next) => {
+router.put('/add/:productId', [isAuthenticated], async (req, res, next) => {
   const { productId } = req.params;
 
   try {
@@ -48,7 +48,7 @@ router.post('/add/:productId', [isAuthenticated], async (req, res, next) => {
         products: [productId]
       });
 
-      res.status(200).json({
+      res.status(201).json({
         success: true,
         data: result
       });
