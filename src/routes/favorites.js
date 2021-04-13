@@ -14,22 +14,20 @@ router.get('/', [isAuthenticated], async (req, res, next) => {
         products: []
       });
 
-      return res.status(200).json({
+
+      return res.status(201).json({
         success: true,
         count: result.products.length,
         data: { products: result.products }
       });
     }
 
-    const result = await FavoritesModel.findOne(
-      { userId: req.user },
-      { products: 1, _id: 0 }
-    );
+    const products = userFavs.get('products');
 
     res.status(200).json({
       success: true,
-      count: result.length,
-      data: result
+      count: products.length,
+      data: products
     });
   } catch (error) {
     next(error);
@@ -67,7 +65,7 @@ router.get('/all', [isAuthenticated], async (req, res, next) => {
   }
 });
 
-router.post('/add/:productId', [isAuthenticated], async (req, res, next) => {
+router.put('/add/:productId', [isAuthenticated], async (req, res, next) => {
   const { productId } = req.params;
 
   try {
@@ -79,7 +77,7 @@ router.post('/add/:productId', [isAuthenticated], async (req, res, next) => {
         products: [productId]
       });
 
-      res.status(200).json({
+      return res.status(201).json({
         success: true,
         data: result
       });
