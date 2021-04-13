@@ -2,6 +2,7 @@ require('dotenv').config();
 const express = require('express');
 const passport = require('passport');
 const cors = require('cors');
+const morgan = require('morgan');
 const cookieSession = require('cookie-session');
 
 require('./configs/db');
@@ -16,6 +17,9 @@ app.use(
     credentials: true
   })
 );
+
+app.use(morgan('combined'));
+
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(
