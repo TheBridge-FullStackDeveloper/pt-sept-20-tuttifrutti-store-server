@@ -30,12 +30,19 @@ router.put('/modify/:userId', async (req, res, next) => {
   }
 });
 
-router.get('/:userId', [isAuthenticated], async (req, res, next) => {
-  const { userId } = req.params;
+router.get('/profile', [isAuthenticated], async (req, res, next) => {
+  try {
+    const userId = req.user;
 
-  const result = await UserModel.findById(userId, { password: 0 });
+    const result = await UserModel.findById(userId, { password: 0 });
+    if (!result) {
+      throw new Error('User not found');
+    }
 
-  res.status(200).json({ success: true, data: result });
+    res.status(200).json({ success: true, data: result });
+  } catch (error) {
+    res.status(401).json({ data: error.message });
+  }
 });
 
 module.exports = router;
