@@ -73,4 +73,23 @@ router.post('/add/:productId', [isAuthenticated], async (req, res, next) => {
   }
 });
 
+router.put('/remove/:productId', [isAuthenticated], async (req, res, next) => {
+  const { productId } = req.params;
+
+  try {
+    const result = await FavoritesModel.findOneAndUpdate(
+      { userId: req.user },
+      { $pullAll: { products: [productId] } },
+      { new: true }
+    );
+
+    res.status(200).json({
+      success: true,
+      data: result
+    });
+  } catch (error) {
+    next(error);
+  }
+});
+
 module.exports = router;
