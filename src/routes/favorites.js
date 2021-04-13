@@ -14,7 +14,39 @@ router.get('/', [isAuthenticated], async (req, res, next) => {
         products: []
       });
 
+
       return res.status(201).json({
+        success: true,
+        count: result.products.length,
+        data: { products: result.products }
+      });
+    }
+
+    const products = userFavs.get('products');
+
+    res.status(200).json({
+      success: true,
+      count: products.length,
+      data: products
+    });
+  } catch (error) {
+    next(error);
+  }
+});
+
+router.get('/all', [isAuthenticated], async (req, res, next) => {
+  try {
+    const userFavs = await FavoritesModel.findOne({
+      userId: req.user
+    }).populate('products');
+
+    if (!userFavs) {
+      const result = await FavoritesModel.create({
+        userId: req.user,
+        products: []
+      });
+
+      res.status(201).json({
         success: true,
         count: result.products.length,
         data: { products: result.products }
