@@ -6,6 +6,7 @@
   "scripts": {
     "start": "node .",
     "dev": "nodemon .",
+    "dev:auth": "PREVENT_AUTH=true DUMMY_USER=6075ed71c124a323c066e3da nodemon .",
     "seeds": "node scripts/seeds.js",
     "db:delete": "node scripts/drops.js"
   },

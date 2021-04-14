@@ -32,6 +32,14 @@ app.use(
 app.use(passport.initialize());
 app.use(passport.session());
 
+// Middleware para falsea autenticación
+if (process.env.PREVENT_AUTH && process.env.DUMMY_USER) {
+  app.use((req, res, next) => {
+    req.user = process.env.DUMMY_USER;
+    next();
+  });
+}
+
 app.use('/api', require('./routes'));
 
 app.use((_, __, next) => {
