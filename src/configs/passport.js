@@ -25,8 +25,6 @@ passport.use(
               password: hash
             });
 
-            console.log(newUser);
-
             newUser
               .save()
               .then(() => done(null, newUser))
