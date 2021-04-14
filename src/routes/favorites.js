@@ -78,7 +78,8 @@ router.put('/add/:productId', [isAuthenticated], async (req, res, next) => {
 
       return res.status(201).json({
         success: true,
-        data: result
+        count: result.products.length,
+        data: { products: [] }
       });
     }
 
@@ -96,6 +97,7 @@ router.put('/add/:productId', [isAuthenticated], async (req, res, next) => {
 
     res.status(200).json({
       success: true,
+      count: products.length,
       data: { products }
     });
   } catch (error) {
@@ -117,6 +119,7 @@ router.put('/remove/:productId', [isAuthenticated], async (req, res, next) => {
 
     res.status(200).json({
       success: true,
+      count: products.length,
       data: { products }
     });
   } catch (error) {
