@@ -4,7 +4,7 @@ const FavoritesModel = require('../../models/Favorites');
 
 const { isAuthenticated } = require('../middlewares/authentication');
 
-router.get('/all', [isAuthenticated], async (req, res, next) => {
+router.get('/', [isAuthenticated], async (req, res, next) => {
   try {
     const userFavs = await FavoritesModel.findOne({ userId: req.user });
 
@@ -14,29 +14,58 @@ router.get('/all', [isAuthenticated], async (req, res, next) => {
         products: []
       });
 
-      res.status(200).json({
+
+      return res.status(201).json({
         success: true,
         count: result.products.length,
         data: { products: result.products }
       });
     }
 
-    const result = await FavoritesModel.findOne(
-      { userId: req.user },
-      { products: 1, _id: 0 }
-    );
+    const products = userFavs.get('products');
 
     res.status(200).json({
       success: true,
-      count: result.length,
-      data: result
+      count: products.length,
+      data: products
     });
   } catch (error) {
     next(error);
   }
 });
 
-router.post('/add/:productId', [isAuthenticated], async (req, res, next) => {
+router.get('/all', [isAuthenticated], async (req, res, next) => {
+  try {
+    const userFavs = await FavoritesModel.findOne({
+      userId: req.user
+    }).populate('products');
+
+    if (!userFavs) {
+      const result = await FavoritesModel.create({
+        userId: req.user,
+        products: []
+      });
+
+      res.status(201).json({
+        success: true,
+        count: result.products.length,
+        data: { products: result.products }
+      });
+    }
+
+    const products = userFavs.get('products');
+
+    res.status(200).json({
+      success: true,
+      count: products.length,
+      data: products
+    });
+  } catch (error) {
+    next(error);
+  }
+});
+
+router.put('/add/:productId', [isAuthenticated], async (req, res, next) => {
   const { productId } = req.params;
 
   try {
@@ -48,7 +77,7 @@ router.post('/add/:productId', [isAuthenticated], async (req, res, next) => {
         products: [productId]
       });
 
-      res.status(200).json({
+      return res.status(201).json({
         success: true,
         data: result
       });

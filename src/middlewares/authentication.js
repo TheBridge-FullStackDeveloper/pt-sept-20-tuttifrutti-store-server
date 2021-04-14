@@ -1,6 +1,13 @@
 const isAuthenticated = (req, res, next) => {
   if (process.env.PREVENT_AUTH) return next();
-  return req.user ? next() : next(new Error('Unauthorized'));
+
+  if (req.user) {
+    return next();
+  } else {
+    const error = new Error('Unauthorized');
+    error.code = 401;
+    return next(error);
+  }
 };
 
 module.exports = {
