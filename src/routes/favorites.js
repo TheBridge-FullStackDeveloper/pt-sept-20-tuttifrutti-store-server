@@ -14,11 +14,10 @@ router.get('/', [isAuthenticated], async (req, res, next) => {
         products: []
       });
 
-
       return res.status(201).json({
         success: true,
         count: result.products.length,
-        data: { products: result.products }
+        data: { products: [] }
       });
     }
 
@@ -27,7 +26,7 @@ router.get('/', [isAuthenticated], async (req, res, next) => {
     res.status(200).json({
       success: true,
       count: products.length,
-      data: products
+      data: { products }
     });
   } catch (error) {
     next(error);
@@ -49,7 +48,7 @@ router.get('/all', [isAuthenticated], async (req, res, next) => {
       res.status(201).json({
         success: true,
         count: result.products.length,
-        data: { products: result.products }
+        data: { products: [] }
       });
     }
 
@@ -58,7 +57,7 @@ router.get('/all', [isAuthenticated], async (req, res, next) => {
     res.status(200).json({
       success: true,
       count: products.length,
-      data: products
+      data: { products }
     });
   } catch (error) {
     next(error);
@@ -79,7 +78,8 @@ router.put('/add/:productId', [isAuthenticated], async (req, res, next) => {
 
       return res.status(201).json({
         success: true,
-        data: result
+        count: result.products.length,
+        data: { products: [] }
       });
     }
 
@@ -93,9 +93,12 @@ router.put('/add/:productId', [isAuthenticated], async (req, res, next) => {
       { new: true }
     );
 
+    const products = result.get('products');
+
     res.status(200).json({
       success: true,
-      data: result
+      count: products.length,
+      data: { products }
     });
   } catch (error) {
     next(error);
@@ -112,9 +115,12 @@ router.put('/remove/:productId', [isAuthenticated], async (req, res, next) => {
       { new: true }
     );
 
+    const products = result.get('products');
+
     res.status(200).json({
       success: true,
-      data: result
+      count: products.length,
+      data: { products }
     });
   } catch (error) {
     next(error);
