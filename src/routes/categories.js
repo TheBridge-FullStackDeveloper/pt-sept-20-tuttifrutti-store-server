@@ -13,6 +13,7 @@ router.get('/', async (_, res, next) => {
 
     res.status(200).json({
       success: true,
+      count: categories.length,
       data: categories
     });
   } catch (error) {
