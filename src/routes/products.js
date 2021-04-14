@@ -4,7 +4,7 @@ const { PORT } = require('../configs/constants');
 const ProductModel = require('../../models/Products');
 
 router.get('/:page', async (req, res, next) => {
-  const perPage = 3;
+  const perPage = 25;
   const page = req.params.page || 1;
 
   try {
