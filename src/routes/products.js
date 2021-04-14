@@ -1,9 +1,10 @@
 const router = require('express').Router();
+const { PORT } = require('../configs/constants');
 
 const ProductModel = require('../../models/Products');
 
 router.get('/:page', async (req, res, next) => {
-  const perPage = 25;
+  const perPage = 3;
   const page = req.params.page || 1;
 
   try {
@@ -11,10 +12,16 @@ router.get('/:page', async (req, res, next) => {
       .skip(perPage * page - perPage)
       .limit(perPage);
 
+    const nextPage =
+      result.length < perPage
+        ? 'this is the last page'
+        : `http://localhost:${PORT}/api/products/${Number(page) + 1}`;
+
     res.status(200).json({
       success: true,
       count: result.length,
       currentPage: page,
+      nextPage: nextPage,
       data: result
     });
   } catch (error) {
@@ -32,10 +39,16 @@ router.get('/category/:category/:page', async (req, res, next) => {
       .skip(perPage * page - perPage)
       .limit(perPage);
 
+    const nextPage =
+      result.length < perPage
+        ? 'this is the last page'
+        : `http://localhost:${PORT}/api/products/${Number(page) + 1}`;
+
     res.status(200).json({
       success: true,
       count: result.length,
       currentPage: page,
+      nextPage: nextPage,
       data: result
     });
   } catch (error) {
