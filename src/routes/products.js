@@ -2,13 +2,19 @@ const router = require('express').Router();
 
 const ProductModel = require('../../models/Products');
 
-router.get('/', async (_, res, next) => {
+router.get('/:page', async (req, res, next) => {
+  const perPage = 25;
+  const page = req.params.page || 1;
+
   try {
-    const result = await ProductModel.find({});
+    const result = await ProductModel.find({})
+      .skip(perPage * page - perPage)
+      .limit(perPage);
 
     res.status(200).json({
       success: true,
       count: result.length,
+      currentPage: page,
       data: result
     });
   } catch (error) {
@@ -16,15 +22,20 @@ router.get('/', async (_, res, next) => {
   }
 });
 
-router.get('/category/:category', async (req, res, next) => {
+router.get('/category/:category/:page', async (req, res, next) => {
   const { category } = req.params;
+  const perPage = 25;
+  const page = req.params.page || 1;
 
   try {
-    const result = await ProductModel.find({ category });
+    const result = await ProductModel.find({ category })
+      .skip(perPage * page - perPage)
+      .limit(perPage);
 
     res.status(200).json({
       success: true,
       count: result.length,
+      currentPage: page,
       data: result
     });
   } catch (error) {
