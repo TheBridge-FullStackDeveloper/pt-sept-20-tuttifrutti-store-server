@@ -8,9 +8,9 @@ router.put('/add/:productId', [isAuthenticated], async (req, res, next) => {
   const { productId } = req.params;
 
   try {
-    const userFavs = await CartModel.findOne({ userId: req.user });
+    const userCart = await CartModel.findOne({ userId: req.user });
 
-    if (!userFavs) {
+    if (!userCart) {
       const result = await CartModel.create({
         userId: req.user,
         products: [productId]
@@ -23,22 +23,24 @@ router.put('/add/:productId', [isAuthenticated], async (req, res, next) => {
       });
     }
 
-    if (userFavs.products.includes(productId)) {
+    const products = userCart.get('products');
+
+    console.log(products);
+
+    // TODO Change code to support adding multiple products
+    if (products.includes(productId)) {
       throw new Error('product already in favorite list');
     }
 
-    const result = await CartModel.findOneAndUpdate(
+    await CartModel.findOneAndUpdate(
       { userId: req.user },
-      { $push: { products: productId } },
-      { new: true }
+      { $push: { products: productId } }
     );
-
-    const products = result.get('products');
 
     res.status(200).json({
       success: true,
-      count: products.length,
-      data: { products }
+      count: products.length + 1,
+      data: { products: [...products, productId] }
     });
   } catch (error) {
     next(error);
