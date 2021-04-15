@@ -1,6 +1,7 @@
 const passport = require('passport');
 const LocalStrategy = require('passport-local').Strategy;
 const bcrypt = require('bcrypt');
+const omitBy = require('lodash/omitBy');
 
 const User = require('../../models/Users');
 
@@ -17,8 +18,10 @@ passport.use(
         .then((user) => {
           if (!user) {
             const hash = bcrypt.hashSync(password, 10);
+            const filteredUser = omitBy(req.body, (value, _) => !value);
+            
             const newUser = new User({
-              ...req.body,
+              ...filteredUser,
               email,
               password: hash
             });
@@ -71,5 +74,6 @@ passport.serializeUser((user, done) => {
 });
 
 passport.deserializeUser((id, done) => {
-  done(null, id);
+  const userId = process.env.PREVENT_AUTH ? process.env.DUMMY_USER : id;
+  done(null, userId);
 });

@@ -3,9 +3,11 @@ const passport = require('passport');
 
 const { isAuthenticated } = require('../middlewares/authentication');
 
-router.get('/profile', [isAuthenticated], (req, res) =>
-  res.status(200).json({ data: req.user, success: true })
-);
+router.get('/profile', [isAuthenticated], (req, res) => {
+  res
+    .status(200)
+    .json({ data: req.user || process.env.DUMMY_USER, success: true });
+});
 
 router.post('/register', (req, res, next) => {
   passport.authenticate('register', (err, user) => {
@@ -16,7 +18,7 @@ router.post('/register', (req, res, next) => {
       if (loginErr) {
         return res.status(401).json({ data: loginErr.message, success: false });
       }
-      res.status(200).json({ data: user, success: true });
+      res.status(200).json({ data: user.email, success: true });
     });
   })(req, res, next);
 });
@@ -30,7 +32,7 @@ router.post('/login', (req, res, next) => {
       if (loginErr) {
         return res.status(401).json({ data: loginErr.message, success: false });
       }
-      res.status(200).json({ data: req.user, success: true });
+      res.status(200).json({ data: req.user.email, success: true });
     });
   })(req, res, next);
 });

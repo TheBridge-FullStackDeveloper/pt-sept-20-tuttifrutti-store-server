@@ -18,7 +18,7 @@ HASH_SECRET=
 Se han creado tres seeds para poder generar datos de usarios y productos aleatorios.
 
 ```js
-  npm run db:seeds
+  npm run seeds
 ```
 
 - Crea las colecciones de la base de datos y las rellena con información aleatoria
