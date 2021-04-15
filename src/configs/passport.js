@@ -19,6 +19,7 @@ passport.use(
           if (!user) {
             const hash = bcrypt.hashSync(password, 10);
             const filteredUser = omitBy(req.body, (value, _) => !value);
+
             const newUser = new User({
               ...filteredUser,
               email,
