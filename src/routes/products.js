@@ -1,5 +1,4 @@
 const router = require('express').Router();
-const { PORT } = require('../configs/constants');
 
 const ProductModel = require('../../models/Products');
 
@@ -13,9 +12,7 @@ router.get('/:page', async (req, res, next) => {
       .limit(perPage);
 
     const nextPage =
-      result.length < perPage
-        ? 'this is the last page'
-        : `http://localhost:${PORT}/api/products/${Number(page) + 1}`;
+      result.length < perPage ? null : `/products?page=${Number(page) + 1}`;
 
     res.status(200).json({
       success: true,
@@ -41,8 +38,8 @@ router.get('/category/:category/:page', async (req, res, next) => {
 
     const nextPage =
       result.length < perPage
-        ? 'this is the last page'
-        : `http://localhost:${PORT}/api/products/${Number(page) + 1}`;
+        ? null
+        : `/category/:category/?page=${Number(page) + 1}`;
 
     res.status(200).json({
       success: true,
