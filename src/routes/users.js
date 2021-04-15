@@ -5,7 +5,7 @@ const UserModel = require('../../models/Users');
 
 const { isAuthenticated } = require('../middlewares/authentication');
 
-router.put('/modify/', [isAuthenticated], async (req, res, next) => {
+router.put('/modify', [isAuthenticated], async (req, res, next) => {
   try {
     const user = await UserModel.findById(req.user);
 

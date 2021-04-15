@@ -1,5 +1,7 @@
 const mongoose = require('mongoose');
 
+const ProductQuantitySchema = require('./ProductQuantity');
+
 const { Schema } = mongoose;
 
 const CartsSchema = new Schema({
@@ -8,12 +10,7 @@ const CartsSchema = new Schema({
     ref: 'Users',
     required: true
   },
-  productsQuantity: [
-    {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: 'ProductQuantity'
-    }
-  ]
+  productsQuantity: [ProductQuantitySchema]
 });
 
 const Carts = mongoose.model('Carts', CartsSchema);
