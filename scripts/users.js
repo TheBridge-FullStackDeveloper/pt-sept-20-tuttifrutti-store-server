@@ -44,7 +44,14 @@ const createUsers = async (rowsCount, seed) => {
     const monthExpirationDate = future().getMonth();
     const yearExpirationDate = future().getFullYear();
 
-    if (entry === rnd) console.log({ mail, pswd });
+    if (entry === rnd) {
+      console.log(
+        `> Dummy user created! Use these values to login: ${JSON.stringify({
+          mail,
+          pswd
+        })}`
+      );
+    }
 
     users.push(
       new UserModel({
