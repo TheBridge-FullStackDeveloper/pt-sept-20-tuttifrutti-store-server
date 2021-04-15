@@ -2,9 +2,9 @@ const router = require('express').Router();
 
 const ProductModel = require('../../models/Products');
 
-router.get('/:page', async (req, res, next) => {
+router.get('/', async (req, res, next) => {
   const perPage = 25;
-  const page = req.params.page || 1;
+  const page = req.query.page || 1;
 
   try {
     const result = await ProductModel.find({})
@@ -26,10 +26,10 @@ router.get('/:page', async (req, res, next) => {
   }
 });
 
-router.get('/category/:category/:page', async (req, res, next) => {
-  const { category } = req.params;
+router.get('/category', async (req, res, next) => {
+  const { category } = req.query;
   const perPage = 25;
-  const page = req.params.page || 1;
+  const { page } = req.query || 1;
 
   try {
     const result = await ProductModel.find({ category })
@@ -39,7 +39,7 @@ router.get('/category/:category/:page', async (req, res, next) => {
     const nextPage =
       result.length < perPage
         ? null
-        : `/category/:category/?page=${Number(page) + 1}`;
+        : `/category/?category='${category}'&page=${Number(page) + 1}`;
 
     res.status(200).json({
       success: true,
