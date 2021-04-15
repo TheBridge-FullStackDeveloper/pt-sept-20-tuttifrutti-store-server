@@ -3,6 +3,7 @@ require('dotenv').config();
 
 const { createUsers } = require('./users');
 const { createProducts } = require('./products');
+const { createFavs } = require('./favorites');
 
 const DEFAULT_ROWS = 5;
 const SEED = 123;
@@ -20,6 +21,7 @@ const SEED = 123;
   try {
     await createUsers(USERS_ROWS || DEFAULT_ROWS, argsOpts[flag]);
     await createProducts(PRODUCTS_ROWS || DEFAULT_ROWS, argsOpts[flag]);
+    await createFavs();
   } catch (error) {
     console.error(error);
   }
