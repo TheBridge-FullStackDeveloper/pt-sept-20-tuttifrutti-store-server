@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "7c134e7d-c7a6-40cf-98c9-349b7ee6fa12",
+		"_postman_id": "735b78f8-e794-495a-b84d-c1fc26b31864",
 		"name": "Tutti-frutti",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
@@ -9,7 +9,7 @@
 			"name": "Backend",
 			"item": [
 				{
-					"name": "User-auth",
+					"name": "auth",
 					"item": [
 						{
 							"name": "Register User",
@@ -18,7 +18,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n    \"email\": \"pepe9@hotmail.com\",\r\n    \"password\": \"3c8curn8erh\"\r\n}",
+									"raw": "{\r\n    \"email\": \"Douglas.Emmerich57@gmail.com\",\r\n    \"password\": \"6kvGIQTWCWkvO09\"\r\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -26,7 +26,7 @@
 									}
 								},
 								"url": {
-									"raw": "http://localhost:4000/api/auth/register",
+									"raw": "http://localhost:4000/api/auth/login",
 									"protocol": "http",
 									"host": [
 										"localhost"
@@ -35,7 +35,7 @@
 									"path": [
 										"api",
 										"auth",
-										"register"
+										"login"
 									]
 								}
 							},
@@ -99,6 +99,246 @@
 										"api",
 										"auth",
 										"logout"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get Profile",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:4000/api/auth/profile",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "4000",
+									"path": [
+										"api",
+										"auth",
+										"profile"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "favorites",
+					"item": [
+						{
+							"name": "Get All Favorites",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:4000/api/favorites/all",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "4000",
+									"path": [
+										"api",
+										"favorites",
+										"all"
+									]
+								},
+								"description": "Muestra la información de todos los favoritos de un usuario populados (el usuario debe estar logeado).\n\nEl formato, cuando todo va ok, es:\n```\n{\n    success: true,\n    count: <number>,\n    products: []\n}\n```"
+							},
+							"response": []
+						},
+						{
+							"name": "Get All Favorites (unpopulated)",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:4000/api/favorites/",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "4000",
+									"path": [
+										"api",
+										"favorites",
+										""
+									]
+								},
+								"description": "Muestra la información de todos los favoritos de un usuario, mostrando solamente sus ids (el usuario debe estar logeado).\n\nEl formato, cuando todo va ok, es:\n```\n{\n    success: true,\n    count: <number>,\n    products: []\n}\n```"
+							},
+							"response": []
+						},
+						{
+							"name": "Add favorite",
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:4000/api/favorites/add/:productId",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "4000",
+									"path": [
+										"api",
+										"favorites",
+										"add",
+										":productId"
+									],
+									"variable": [
+										{
+											"key": "productId",
+											"value": "6076f3368dce83c2455ae17f",
+											"description": "This is a product id from the products collection"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Remove favorite",
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:4000/api/favorites/remove/:productId",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "4000",
+									"path": [
+										"api",
+										"favorites",
+										"remove",
+										":productId"
+									],
+									"variable": [
+										{
+											"key": "productId",
+											"value": "6076f3368dce83c2455ae17f",
+											"description": "This is a product id from the products collection"
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "users",
+					"item": [
+						{
+							"name": "Modify User",
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:4000/api/users/modify/:userId",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "4000",
+									"path": [
+										"api",
+										"users",
+										"modify",
+										":userId"
+									],
+									"variable": [
+										{
+											"key": "userId",
+											"value": "60784b170a2168319b8a5d8d"
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "products",
+					"item": [
+						{
+							"name": "Get all products",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:4000/api/products/",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "4000",
+									"path": [
+										"api",
+										"products",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get products by category",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:4000/api/products/category/:category",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "4000",
+									"path": [
+										"api",
+										"products",
+										"category",
+										":category"
+									],
+									"variable": [
+										{
+											"key": "category",
+											"value": "games"
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "categories",
+					"item": [
+						{
+							"name": "Get all categories",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:4000/api/categories",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "4000",
+									"path": [
+										"api",
+										"categories"
 									]
 								}
 							},
