@@ -1,6 +1,7 @@
 const mongoose = require('mongoose');
 
 const { Schema } = mongoose;
+const ProductQuantitySchema = require('./ProductQuantity');
 
 const CartsSchema = new Schema({
   userId: {
@@ -13,7 +14,8 @@ const CartsSchema = new Schema({
       type: mongoose.Schema.Types.ObjectId,
       ref: 'Products'
     }
-  ]
+  ],
+  quantity: [ProductQuantitySchema]
 });
 
 const Carts = mongoose.model('Carts', CartsSchema);
