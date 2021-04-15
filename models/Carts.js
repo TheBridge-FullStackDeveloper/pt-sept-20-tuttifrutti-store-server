@@ -8,16 +8,10 @@ const CartsSchema = new Schema({
     ref: 'Users',
     required: true
   },
-  products: [
-    {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: 'Products'
-    }
-  ],
   productsQuantity: [
     {
       type: mongoose.Schema.Types.ObjectId,
-      ref: 'ProductQuantitySchema'
+      ref: 'ProductQuantity'
     }
   ]
 });
