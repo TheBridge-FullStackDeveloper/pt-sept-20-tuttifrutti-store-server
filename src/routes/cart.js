@@ -1,6 +1,7 @@
 const router = require('express').Router();
 
 const CartModel = require('../../models/Carts');
+// const ProductQuantitySchema = require('../../models/ProductQuantity');
 
 const { isAuthenticated } = require('../middlewares/authentication');
 
@@ -13,35 +14,51 @@ router.put('/add/:productId', [isAuthenticated], async (req, res, next) => {
     if (!userCart) {
       const result = await CartModel.create({
         userId: req.user,
-        products: [productId]
+        productsQuantity: [
+          {
+            productId,
+            quantity: 1
+          }
+        ]
       });
 
       return res.status(201).json({
         success: true,
-        count: result.products.length,
-        data: { products: [] }
+        count: result.productsQuantity.length,
+        data: { products: result.productsQuantity }
       });
     }
 
-    const products = userCart.get('products');
+    // Transformar el array del subesquema en un array de objetos reales de JS
+    const prevProductsQuantity = userCart
+      .get('productsQuantity')
+      .map((el) => el.toObject());
 
-    console.log(products);
+    const newArr = [...prevProductsQuantity, { productId, quantity: 2 }];
 
-    // TODO Change code to support adding multiple products
-    if (products.includes(productId)) {
-      throw new Error('product already in favorite list');
-    }
-
-    await CartModel.findOneAndUpdate(
+    const result = await CartModel.findOneAndUpdate(
       { userId: req.user },
-      { $push: { products: productId } }
+      { productsQuantity: newArr },
+      { new: true }
     );
 
-    res.status(200).json({
-      success: true,
-      count: products.length + 1,
-      data: { products: [...products, productId] }
-    });
+    return res.status(200).json(result);
+
+    // TODO Change code to support adding multiple products
+    // if (products.includes(productId)) {
+    //   throw new Error('product already in favorite list');
+    // }
+
+    // await CartModel.findOneAndUpdate(
+    //   { userId: req.user },
+    //   { $push: { products: productId } }
+    // );
+
+    // res.status(200).json({
+    //   success: true,
+    //   count: products.length + 1,
+    //   data: { products: [...products, productId] }
+    // });
   } catch (error) {
     next(error);
   }

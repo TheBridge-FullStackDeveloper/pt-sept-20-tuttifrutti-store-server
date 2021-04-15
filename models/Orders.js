@@ -1,18 +1,16 @@
 const mongoose = require('mongoose');
+
+const ProductQuantitySchema = require('./ProductQuantity');
+
 const { Schema } = mongoose;
 
 const OrderSchema = new Schema(
   {
-    products: [
-      {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'Products'
-      }
-    ],
     userId: {
       type: mongoose.Schema.Types.ObjectId,
       ref: 'Users'
     },
+    productsQuantity: [ProductQuantitySchema],
     totalPrice: {
       type: Number,
       required: true
