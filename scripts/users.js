@@ -1,10 +1,15 @@
 const faker = require('faker');
+const bcrypt = require('bcrypt');
 
 const UserModel = require('../models/Users');
+
+const userCount = process.env.USERS_ROWS || 50;
 
 const active = () => Math.random() > 0.5;
 
 const formatNonDigits = (string) => Number(string.replace(/\D/g, ''));
+
+const rnd = Math.floor(Math.random() * userCount);
 
 const createUsers = async (rowsCount, seed) => {
   const entries = Array.from({ length: rowsCount }, (_, i) => i);
@@ -32,11 +37,14 @@ const createUsers = async (rowsCount, seed) => {
     const country = address.country();
     const mail = email();
     const pswd = password();
+    const hash = bcrypt.hashSync(pswd, 10);
     const phoneNumber = formatNonDigits(phone.phoneNumber());
     const isActive = active();
     const creditCard = formatNonDigits(creditCardNumber().substring(0, 16));
     const monthExpirationDate = future().getMonth();
     const yearExpirationDate = future().getFullYear();
+
+    if (entry === rnd) console.log({ mail, pswd });
 
     users.push(
       new UserModel({
@@ -49,7 +57,7 @@ const createUsers = async (rowsCount, seed) => {
         city,
         country,
         email: mail,
-        password: pswd,
+        password: hash,
         phone: phoneNumber,
         active: isActive,
         creditCard,
