@@ -1,13 +1,12 @@
 const mongoose = require('mongoose');
 const { Schema } = mongoose;
-const ProductQuantitySchema = require('./ProductQuantity');
 
 const OrderSchema = new Schema(
   {
-    products: [
+    productsQuantity: [
       {
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'Products'
+        ref: 'ProductQuantitySchema'
       }
     ],
     userId: {
@@ -23,8 +22,7 @@ const OrderSchema = new Schema(
       enum: ['paid', 'pending-payment', 'sent', 'delivered'],
       default: 'pending-payment',
       required: true
-    },
-    quantity: [ProductQuantitySchema]
+    }
   },
   {
     timestamps: true
