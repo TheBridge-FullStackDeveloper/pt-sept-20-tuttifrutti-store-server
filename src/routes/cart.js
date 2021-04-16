@@ -1,7 +1,6 @@
 const router = require('express').Router();
 
 const CartModel = require('../../models/Carts');
-// const ProductQuantitySchema = require('../../models/ProductQuantity');
 
 const { isAuthenticated } = require('../middlewares/authentication');
 
@@ -28,13 +27,16 @@ router.put('/add/:productId', [isAuthenticated], async (req, res, next) => {
         data: { products: result.productsQuantity }
       });
     }
-
     // Transformar el array del subesquema en un array de objetos reales de JS
     const prevProductsQuantity = userCart
       .get('productsQuantity')
       .map((el) => el.toObject());
 
-    const newArr = [...prevProductsQuantity, { productId, quantity: 2 }];
+    const addToQuantity = await prevProductsQuantity.find(
+      ({ productId }) => productId
+    );
+    console.log(addToQuantity.quantity + 1);
+    const newArr = [...prevProductsQuantity, addToQuantity];
 
     const result = await CartModel.findOneAndUpdate(
       { userId: req.user },
@@ -43,22 +45,6 @@ router.put('/add/:productId', [isAuthenticated], async (req, res, next) => {
     );
 
     return res.status(200).json(result);
-
-    // TODO Change code to support adding multiple products
-    // if (products.includes(productId)) {
-    //   throw new Error('product already in favorite list');
-    // }
-
-    // await CartModel.findOneAndUpdate(
-    //   { userId: req.user },
-    //   { $push: { products: productId } }
-    // );
-
-    // res.status(200).json({
-    //   success: true,
-    //   count: products.length + 1,
-    //   data: { products: [...products, productId] }
-    // });
   } catch (error) {
     next(error);
   }
