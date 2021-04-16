@@ -3,10 +3,10 @@ const { Schema } = mongoose;
 
 const OrderSchema = new Schema(
   {
-    products: [
+    productsQuantity: [
       {
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'Products'
+        ref: 'ProductQuantity'
       }
     ],
     userId: {
