@@ -47,6 +47,7 @@ app.use((_, __, next) => {
 });
 
 app.use((error, _, res, __) => {
+  console.log(error);
   res.status(error.code || 400).json({
     success: false,
     message: error.message
