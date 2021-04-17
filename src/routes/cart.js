@@ -4,14 +4,17 @@ const CartModel = require('../../models/Carts');
 
 const { isAuthenticated } = require('../middlewares/authentication');
 
-router.put('/add', [isAuthenticated], async (req, res, next) => {
-  const { productId } = req.query;
-  const { quantity } = req.query || 1;
+router.put('/add/:productId', [isAuthenticated], async (req, res, next) => {
+  const { productId } = req.params;
+  const { quantity } = req.query;
 
   try {
-    if (isNaN(quantity)) {
-      throw new Error('set a valid quantity');
+    const numQuantity = Number(quantity);
+
+    if (Number.isNaN(numQuantity)) {
+      throw new Error('not a number');
     }
+
     const userCart = await CartModel.findOne({ userId: req.user });
 
     if (!userCart) {
@@ -20,7 +23,7 @@ router.put('/add', [isAuthenticated], async (req, res, next) => {
         productsQuantity: [
           {
             productId,
-            quantity: parseInt(quantity)
+            quantity: numQuantity
           }
         ]
       });
@@ -41,12 +44,13 @@ router.put('/add', [isAuthenticated], async (req, res, next) => {
     const newProducts = prevProductsQuantity.map((product) => {
       if (product.productId.toString() === productId) {
         isProductFound = true;
-        return { ...product, quantity: product.quantity + parseInt(quantity) };
+        return { ...product, quantity: numQuantity + product.quantity };
       }
       return product;
     });
 
     if (isProductFound) {
+      console.log('found', newProducts);
       const result = await CartModel.findOneAndUpdate(
         { userId: req.user },
         { productsQuantity: newProducts },
@@ -63,7 +67,7 @@ router.put('/add', [isAuthenticated], async (req, res, next) => {
     const result = await CartModel.findOneAndUpdate(
       { userId: req.user },
       {
-        $push: { productsQuantity: { productId, quantity: parseInt(quantity) } }
+        $push: { productsQuantity: { productId, quantity: numQuantity } }
       },
       { new: true }
     );
