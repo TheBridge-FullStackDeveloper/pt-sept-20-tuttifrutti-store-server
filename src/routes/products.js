@@ -81,7 +81,7 @@ router.get('/ref/:productRef', async (req, res, next) => {
   try {
     const result = await ProductModel.findOne({ productRef });
 
-    if (!result.length) {
+    if (!result) {
       const error = new Error('product not found');
       error.code = 404;
       throw error;
@@ -102,7 +102,11 @@ router.get('/:id', async (req, res, next) => {
   try {
     const result = await ProductModel.findById(id);
 
-    if (!result) throw new Error('product not found');
+    if (!result) {
+      const error = new Error('product not found');
+      error.code = 404;
+      throw error;
+    }
 
     res.status(200).json({
       success: true,

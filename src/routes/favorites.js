@@ -84,7 +84,9 @@ router.put('/add/:productId', [isAuthenticated], async (req, res, next) => {
     }
 
     if (userFavs.products.includes(productId)) {
-      throw new Error('product already in favorite list');
+      const error = new Error('product already in favorite list');
+      error.code = 403;
+      throw error;
     }
 
     const result = await FavoritesModel.findOneAndUpdate(

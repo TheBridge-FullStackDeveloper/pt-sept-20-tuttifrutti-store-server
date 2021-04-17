@@ -10,7 +10,9 @@ router.put('/modify', [isAuthenticated], async (req, res, next) => {
     const user = await UserModel.findById(req.user);
 
     if (!user) {
-      throw new Error('user not found');
+      const error = new Error('User not found');
+      error.code = 404;
+      throw error;
     }
 
     const filteredUser = omitBy(req.body, (value, _) => !value);
@@ -33,6 +35,7 @@ router.get('/profile', [isAuthenticated], async (req, res, next) => {
     const userId = req.user;
 
     const result = await UserModel.findById(userId, { password: 0 });
+
     if (!result) {
       const error = new Error('User not found');
       error.code = 404;

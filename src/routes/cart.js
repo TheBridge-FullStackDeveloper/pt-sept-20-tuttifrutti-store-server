@@ -12,7 +12,9 @@ router.put('/add/:productId', [isAuthenticated], async (req, res, next) => {
     const numQuantity = Number(quantity);
 
     if (Number.isNaN(numQuantity)) {
-      throw new Error('not a number');
+      const error = new Error('not a number');
+      error.code = 400;
+      throw error;
     }
 
     const userCart = await CartModel.findOne({ userId: req.user });
