@@ -32,6 +32,28 @@ router.get('/category/:category', async (req, res, next) => {
   }
 });
 
+router.get('/search', async (req, res, next) => {
+  const { name } = req.query;
+
+  try {
+    const result = await ProductModel.find({
+      $or: [
+        { productName: { $regex: name, $options: 'ig' } },
+        { description: { $regex: name, $options: 'ig' } },
+        { category: { $regex: name, $options: 'ig' } }
+      ]
+    });
+
+    res.status(200).json({
+      success: true,
+      count: result.length,
+      data: result
+    });
+  } catch (error) {
+    next(error);
+  }
+});
+
 router.get('/:id', async (req, res, next) => {
   const { id } = req.params;
 
