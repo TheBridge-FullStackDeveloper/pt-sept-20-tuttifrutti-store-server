@@ -4,10 +4,14 @@ const CartModel = require('../../models/Carts');
 
 const { isAuthenticated } = require('../middlewares/authentication');
 
-router.put('/add/:productId', [isAuthenticated], async (req, res, next) => {
-  const { productId } = req.params;
+router.put('/add', [isAuthenticated], async (req, res, next) => {
+  const { productId } = req.query;
+  const { quantity } = req.query || 1;
 
   try {
+    if (isNaN(quantity)) {
+      throw new Error('set a valid quantity');
+    }
     const userCart = await CartModel.findOne({ userId: req.user });
 
     if (!userCart) {
@@ -16,7 +20,7 @@ router.put('/add/:productId', [isAuthenticated], async (req, res, next) => {
         productsQuantity: [
           {
             productId,
-            quantity: 1
+            quantity: parseInt(quantity)
           }
         ]
       });
@@ -32,19 +36,45 @@ router.put('/add/:productId', [isAuthenticated], async (req, res, next) => {
       .get('productsQuantity')
       .map((el) => el.toObject());
 
-    const addToQuantity = await prevProductsQuantity.find(
-      ({ productId }) => productId
-    );
-    console.log(addToQuantity.quantity + 1);
-    const newArr = [...prevProductsQuantity, addToQuantity];
+    let isProductFound = false;
+
+    const newProducts = prevProductsQuantity.map((product) => {
+      if (product.productId.toString() === productId) {
+        isProductFound = true;
+        return { ...product, quantity: product.quantity + parseInt(quantity) };
+      }
+      return product;
+    });
+
+    if (isProductFound) {
+      const result = await CartModel.findOneAndUpdate(
+        { userId: req.user },
+        { productsQuantity: newProducts },
+        { new: true }
+      );
+
+      return res.status(200).json({
+        success: true,
+        count: newProducts.length,
+        data: result
+      });
+    }
 
     const result = await CartModel.findOneAndUpdate(
       { userId: req.user },
-      { productsQuantity: newArr },
+      {
+        $push: { productsQuantity: { productId, quantity: parseInt(quantity) } }
+      },
       { new: true }
     );
 
-    return res.status(200).json(result);
+    const products = result.get('productsQuantity');
+
+    res.status(200).json({
+      success: true,
+      count: products.length,
+      data: { products }
+    });
   } catch (error) {
     next(error);
   }
