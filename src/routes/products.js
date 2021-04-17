@@ -79,7 +79,7 @@ router.get('/ref/:productRef', async (req, res, next) => {
   const { productRef } = req.params;
 
   try {
-    const result = await ProductModel.find({ productRef });
+    const result = await ProductModel.findOne({ productRef });
 
     if (!result.length) {
       const error = new Error('product not found');
@@ -89,7 +89,6 @@ router.get('/ref/:productRef', async (req, res, next) => {
 
     res.status(200).json({
       success: true,
-      count: result.length,
       data: result
     });
   } catch (error) {
