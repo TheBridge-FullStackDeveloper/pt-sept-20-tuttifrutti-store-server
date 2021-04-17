@@ -75,6 +75,28 @@ router.get('/search', async (req, res, next) => {
   }
 });
 
+router.get('/ref/:productRef', async (req, res, next) => {
+  const { productRef } = req.params;
+
+  try {
+    const result = await ProductModel.find({ productRef });
+
+    if (!result.length) {
+      const error = new Error('product not found');
+      error.code = 404;
+      throw error;
+    }
+
+    res.status(200).json({
+      success: true,
+      count: result.length,
+      data: result
+    });
+  } catch (error) {
+    next(error);
+  }
+});
+
 router.get('/:id', async (req, res, next) => {
   const { id } = req.params;
 
