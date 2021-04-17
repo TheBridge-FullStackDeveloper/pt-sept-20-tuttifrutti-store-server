@@ -6,362 +6,409 @@
 	},
 	"item": [
 		{
-			"name": "Backend",
+			"name": "auth",
 			"item": [
 				{
-					"name": "auth",
-					"item": [
-						{
-							"name": "Register User",
-							"request": {
-								"method": "POST",
-								"header": [],
-								"body": {
-									"mode": "raw",
-									"raw": "{\r\n    \"email\": \"Douglas.Emmerich57@gmail.com\",\r\n    \"password\": \"6kvGIQTWCWkvO09\"\r\n}",
-									"options": {
-										"raw": {
-											"language": "json"
-										}
-									}
-								},
-								"url": {
-									"raw": "http://localhost:4000/api/auth/register",
-									"protocol": "http",
-									"host": [
-										"localhost"
-									],
-									"port": "4000",
-									"path": [
-										"api",
-										"auth",
-										"register"
-									]
+					"name": "Register User",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\": \"Douglas.Emmerich57@gmail.com\",\r\n    \"password\": \"6kvGIQTWCWkvO09\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
 								}
-							},
-							"response": []
+							}
 						},
-						{
-							"name": "User Login",
-							"request": {
-								"method": "POST",
-								"header": [],
-								"body": {
-									"mode": "raw",
-									"raw": "{\r\n    \"email\": \"pepe1@hotmail.com\",\r\n    \"password\": \"3c8curn8erh\"\r\n}",
-									"options": {
-										"raw": {
-											"language": "json"
-										}
-									}
-								},
-								"url": {
-									"raw": "http://localhost:4000/api/auth/login",
-									"protocol": "http",
-									"host": [
-										"localhost"
-									],
-									"port": "4000",
-									"path": [
-										"api",
-										"auth",
-										"login"
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "User Logout",
-							"protocolProfileBehavior": {
-								"disableBodyPruning": true
-							},
-							"request": {
-								"method": "GET",
-								"header": [],
-								"body": {
-									"mode": "raw",
-									"raw": "{\r\n    \"email\": \"maude_jacobi@gmail.com\",\r\n    \"password\": \"2J1SdSIqOegBeH_\"\r\n}",
-									"options": {
-										"raw": {
-											"language": "json"
-										}
-									}
-								},
-								"url": {
-									"raw": "http://localhost:4000/api/auth/logout",
-									"protocol": "http",
-									"host": [
-										"localhost"
-									],
-									"port": "4000",
-									"path": [
-										"api",
-										"auth",
-										"logout"
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "Get Profile",
-							"request": {
-								"method": "GET",
-								"header": [],
-								"url": {
-									"raw": "http://localhost:4000/api/auth/profile",
-									"protocol": "http",
-									"host": [
-										"localhost"
-									],
-									"port": "4000",
-									"path": [
-										"api",
-										"auth",
-										"profile"
-									]
-								}
-							},
-							"response": []
+						"url": {
+							"raw": "http://localhost:4000/api/auth/register",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "4000",
+							"path": [
+								"api",
+								"auth",
+								"register"
+							]
 						}
-					]
+					},
+					"response": []
 				},
 				{
-					"name": "favorites",
-					"item": [
-						{
-							"name": "Get All Favorites",
-							"request": {
-								"method": "GET",
-								"header": [],
-								"url": {
-									"raw": "http://localhost:4000/api/favorites/all",
-									"protocol": "http",
-									"host": [
-										"localhost"
-									],
-									"port": "4000",
-									"path": [
-										"api",
-										"favorites",
-										"all"
-									]
-								},
-								"description": "Muestra la información de todos los favoritos de un usuario populados (el usuario debe estar logeado).\n\nEl formato, cuando todo va ok, es:\n```\n{\n    success: true,\n    count: <number>,\n    products: []\n}\n```"
-							},
-							"response": []
-						},
-						{
-							"name": "Get All Favorites (unpopulated)",
-							"request": {
-								"method": "GET",
-								"header": [],
-								"url": {
-									"raw": "http://localhost:4000/api/favorites/",
-									"protocol": "http",
-									"host": [
-										"localhost"
-									],
-									"port": "4000",
-									"path": [
-										"api",
-										"favorites",
-										""
-									]
-								},
-								"description": "Muestra la información de todos los favoritos de un usuario, mostrando solamente sus ids (el usuario debe estar logeado).\n\nEl formato, cuando todo va ok, es:\n```\n{\n    success: true,\n    count: <number>,\n    products: []\n}\n```"
-							},
-							"response": []
-						},
-						{
-							"name": "Add favorite",
-							"request": {
-								"method": "PUT",
-								"header": [],
-								"url": {
-									"raw": "http://localhost:4000/api/favorites/add/:productId",
-									"protocol": "http",
-									"host": [
-										"localhost"
-									],
-									"port": "4000",
-									"path": [
-										"api",
-										"favorites",
-										"add",
-										":productId"
-									],
-									"variable": [
-										{
-											"key": "productId",
-											"value": "6076f3368dce83c2455ae17f",
-											"description": "This is a product id from the products collection"
-										}
-									]
+					"name": "User Login",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\": \"pepe1@hotmail.com\",\r\n    \"password\": \"3c8curn8erh\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
 								}
-							},
-							"response": []
+							}
 						},
-						{
-							"name": "Remove favorite",
-							"request": {
-								"method": "PUT",
-								"header": [],
-								"url": {
-									"raw": "http://localhost:4000/api/favorites/remove/:productId",
-									"protocol": "http",
-									"host": [
-										"localhost"
-									],
-									"port": "4000",
-									"path": [
-										"api",
-										"favorites",
-										"remove",
-										":productId"
-									],
-									"variable": [
-										{
-											"key": "productId",
-											"value": "6076f3368dce83c2455ae17f",
-											"description": "This is a product id from the products collection"
-										}
-									]
-								}
-							},
-							"response": []
+						"url": {
+							"raw": "http://localhost:4000/api/auth/login",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "4000",
+							"path": [
+								"api",
+								"auth",
+								"login"
+							]
 						}
-					]
+					},
+					"response": []
 				},
 				{
-					"name": "users",
-					"item": [
-						{
-							"name": "Modify User",
-							"request": {
-								"method": "PUT",
-								"header": [],
-								"url": {
-									"raw": "http://localhost:4000/api/users/modify/:userId",
-									"protocol": "http",
-									"host": [
-										"localhost"
-									],
-									"port": "4000",
-									"path": [
-										"api",
-										"users",
-										"modify",
-										":userId"
-									],
-									"variable": [
-										{
-											"key": "userId",
-											"value": "60784b170a2168319b8a5d8d"
-										}
-									]
+					"name": "User Logout",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\": \"maude_jacobi@gmail.com\",\r\n    \"password\": \"2J1SdSIqOegBeH_\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
 								}
-							},
-							"response": []
-						}
-					]
-				},
-				{
-					"name": "products",
-					"item": [
-						{
-							"name": "Get all products",
-							"protocolProfileBehavior": {
-								"disableBodyPruning": true
-							},
-							"request": {
-								"method": "GET",
-								"header": [],
-								"body": {
-									"mode": "formdata",
-									"formdata": []
-								},
-								"url": {
-									"raw": "http://localhost:4000/api/products/?page=1",
-									"protocol": "http",
-									"host": [
-										"localhost"
-									],
-									"port": "4000",
-									"path": [
-										"api",
-										"products",
-										""
-									],
-									"query": [
-										{
-											"key": "page",
-											"value": "1"
-										}
-									]
-								}
-							},
-							"response": []
+							}
 						},
-						{
-							"name": "Get products by category",
-							"request": {
-								"method": "GET",
-								"header": [],
-								"url": {
-									"raw": "http://localhost:4000/api/products/category/?category=clothing&page=1",
-									"protocol": "http",
-									"host": [
-										"localhost"
-									],
-									"port": "4000",
-									"path": [
-										"api",
-										"products",
-										"category",
-										""
-									],
-									"query": [
-										{
-											"key": "category",
-											"value": "clothing"
-										},
-										{
-											"key": "page",
-											"value": "1"
-										}
-									]
-								}
-							},
-							"response": []
+						"url": {
+							"raw": "http://localhost:4000/api/auth/logout",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "4000",
+							"path": [
+								"api",
+								"auth",
+								"logout"
+							]
 						}
-					]
+					},
+					"response": []
 				},
 				{
-					"name": "categories",
-					"item": [
-						{
-							"name": "Get all categories",
-							"request": {
-								"method": "GET",
-								"header": [],
-								"url": {
-									"raw": "http://localhost:4000/api/categories",
-									"protocol": "http",
-									"host": [
-										"localhost"
-									],
-									"port": "4000",
-									"path": [
-										"api",
-										"categories"
-									]
-								}
-							},
-							"response": []
+					"name": "Get Profile",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:4000/api/auth/profile",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "4000",
+							"path": [
+								"api",
+								"auth",
+								"profile"
+							]
 						}
-					]
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "favorites",
+			"item": [
+				{
+					"name": "Get All Favorites",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:4000/api/favorites/all",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "4000",
+							"path": [
+								"api",
+								"favorites",
+								"all"
+							]
+						},
+						"description": "Muestra la información de todos los favoritos de un usuario populados (el usuario debe estar logeado).\n\nEl formato, cuando todo va ok, es:\n```\n{\n    success: true,\n    count: <number>,\n    products: []\n}\n```"
+					},
+					"response": []
+				},
+				{
+					"name": "Get All Favorites (unpopulated)",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:4000/api/favorites/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "4000",
+							"path": [
+								"api",
+								"favorites",
+								""
+							]
+						},
+						"description": "Muestra la información de todos los favoritos de un usuario, mostrando solamente sus ids (el usuario debe estar logeado).\n\nEl formato, cuando todo va ok, es:\n```\n{\n    success: true,\n    count: <number>,\n    products: []\n}\n```"
+					},
+					"response": []
+				},
+				{
+					"name": "Add favorite",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:4000/api/favorites/add/:productId",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "4000",
+							"path": [
+								"api",
+								"favorites",
+								"add",
+								":productId"
+							],
+							"variable": [
+								{
+									"key": "productId",
+									"value": "6076f3368dce83c2455ae17f",
+									"description": "This is a product id from the products collection"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Remove favorite",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:4000/api/favorites/remove/:productId",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "4000",
+							"path": [
+								"api",
+								"favorites",
+								"remove",
+								":productId"
+							],
+							"variable": [
+								{
+									"key": "productId",
+									"value": "6076f3368dce83c2455ae17f",
+									"description": "This is a product id from the products collection"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "users",
+			"item": [
+				{
+					"name": "Modify User",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:4000/api/users/modify/:userId",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "4000",
+							"path": [
+								"api",
+								"users",
+								"modify",
+								":userId"
+							],
+							"variable": [
+								{
+									"key": "userId",
+									"value": "60784b170a2168319b8a5d8d"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get User Profile",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": null
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "products",
+			"item": [
+				{
+					"name": "Get all products",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": []
+						},
+						"url": {
+							"raw": "http://localhost:4000/api/products/?page=1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "4000",
+							"path": [
+								"api",
+								"products",
+								""
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get products by category",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:4000/api/products/category/?category=clothing&page=1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "4000",
+							"path": [
+								"api",
+								"products",
+								"category",
+								""
+							],
+							"query": [
+								{
+									"key": "category",
+									"value": "clothing"
+								},
+								{
+									"key": "page",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "categories",
+			"item": [
+				{
+					"name": "Get all categories",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:4000/api/categories",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "4000",
+							"path": [
+								"api",
+								"categories"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "cart",
+			"item": [
+				{
+					"name": "PUT add product to cart + quantity",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:4000/api/cart/add/:productId?&quantity=10",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "4000",
+							"path": [
+								"api",
+								"cart",
+								"add",
+								":productId"
+							],
+							"query": [
+								{
+									"key": "",
+									"value": null
+								},
+								{
+									"key": "quantity",
+									"value": "10"
+								}
+							],
+							"variable": [
+								{
+									"key": "productId",
+									"value": "60709d8f24a9615d9cff2b72"
+								}
+							]
+						}
+					},
+					"response": []
 				}
 			]
 		}

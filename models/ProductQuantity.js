@@ -14,6 +14,4 @@ const ProductQuantitySchema = new Schema(
   }
 );
 
-const model = mongoose.model('ProductQuantity', ProductQuantitySchema);
-
-module.exports = model;
+module.exports = ProductQuantitySchema;
