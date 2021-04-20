@@ -108,31 +108,31 @@ router.put('/remove/:productId', [isAuthenticated], async (req, res, next) => {
 
     let isProductFound = false;
 
-    const newProducts = prevProductsQuantity.map((product) => {
-      if (product.productId.toString() === productId) {
-        isProductFound = true;
-        return { ...product, quantity: product.quantity - numQuantity };
-      }
-      return product;
-    });
-
-    const filteredProducts = newProducts.filter((product) => {
-      if (product.quantity < 1) {
-        return product.productId.toString() !== productId;
-      }
-      return product;
-    });
+    const removedProducts = prevProductsQuantity
+      .map((product) => {
+        if (product.productId.toString() === productId) {
+          isProductFound = true;
+          return { ...product, quantity: product.quantity - numQuantity };
+        }
+        return product;
+      })
+      .filter((product) => {
+        if (product.quantity < 1) {
+          return product.productId.toString() !== productId;
+        }
+        return product;
+      });
 
     if (isProductFound) {
       const result = await CartModel.findOneAndUpdate(
         { userId: req.user },
-        { productsQuantity: filteredProducts },
+        { productsQuantity: removedProducts },
         { new: true }
       );
 
       return res.status(200).json({
         success: true,
-        count: filteredProducts.length,
+        count: removedProducts.length,
         data: result
       });
     }
