@@ -123,7 +123,6 @@ router.put('/remove/:productId', [isAuthenticated], async (req, res, next) => {
       return product;
     });
 
-    console.log(newProducts);
     if (isProductFound) {
       const result = await CartModel.findOneAndUpdate(
         { userId: req.user },
