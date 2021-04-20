@@ -6,14 +6,14 @@ const { isAuthenticated } = require('../middlewares/authentication');
 
 router.put('/add/:productId', [isAuthenticated], async (req, res, next) => {
   const { productId } = req.params;
-  const quantity = req.query.quantity || 1;
+  const { quantity = 1 } = req.query;
 
   try {
     const numQuantity = Number(quantity);
 
     if (Number.isNaN(numQuantity)) {
       const error = new Error('not a number');
-      error.code = 400;
+      error.code = 422;
       throw error;
     }
 
@@ -88,14 +88,14 @@ router.put('/add/:productId', [isAuthenticated], async (req, res, next) => {
 
 router.put('/remove/:productId', [isAuthenticated], async (req, res, next) => {
   const { productId } = req.params;
-  const quantity = req.query.quantity || 1;
+  const { quantity = 1 } = req.query;
 
   try {
     const numQuantity = Number(quantity);
 
     if (Number.isNaN(numQuantity)) {
       const error = new Error('not a number');
-      error.code = 400;
+      error.code = 422;
       throw error;
     }
 
@@ -116,12 +116,7 @@ router.put('/remove/:productId', [isAuthenticated], async (req, res, next) => {
         }
         return product;
       })
-      .filter((product) => {
-        if (product.quantity < 1) {
-          return product.productId.toString() !== productId;
-        }
-        return product;
-      });
+      .filter((product) => product.quantity >= 1);
 
     if (isProductFound) {
       const result = await CartModel.findOneAndUpdate(
