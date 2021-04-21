@@ -36,16 +36,15 @@ router.post('/', [isAuthenticated], async (req, res, next) => {
       productsQuantity: populatedCartProducts
     });
 
-    const cartClear = (id) =>
-      CartModel.deleteOne({
-        _id: id._id
-      });
-
     res.status(200).json({
       success: true,
       data: result
     });
-    cartClear(`${cart._id.toString()}`);
+    const cartClear = async (id) =>
+      CartModel.deleteOne({
+        _id: id._id
+      });
+    await cartClear(`${cart._id.toString()}`);
   } catch (error) {
     next(error);
   }
