@@ -40,11 +40,14 @@ router.post('/', [isAuthenticated], async (req, res, next) => {
       success: true,
       data: result
     });
-    const cartClear = async (id) =>
-      CartModel.deleteOne({
-        _id: id._id
-      });
-    await cartClear(`${cart._id.toString()}`);
+
+    const cartId = cart._id.toString();
+    console.log(cartId);
+
+    CartModel.findByIdAndDelete(cartId, function (err) {
+      if (err) console.log(err);
+      console.log('Successful deletion');
+    });
   } catch (error) {
     next(error);
   }
