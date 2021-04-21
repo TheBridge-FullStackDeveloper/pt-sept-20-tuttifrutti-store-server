@@ -18,11 +18,11 @@ router.post('/', [isAuthenticated], async (req, res, next) => {
       }
     });
 
-    const prevProductsQuantity = cart
+    const populatedCartProducts = cart
       .get('productsQuantity')
       .map((el) => el.toObject());
 
-    const totalPriceByProduct = prevProductsQuantity.map(
+    const totalPriceByProduct = populatedCartProducts.map(
       (product) => product.productId.price * product.quantity
     );
     const totalPrice = totalPriceByProduct.reduce(function (a, b) {
@@ -33,7 +33,7 @@ router.post('/', [isAuthenticated], async (req, res, next) => {
       userId: req.user,
       totalPrice: totalPrice,
       state: 'pending-payment',
-      productsQuantity: prevProductsQuantity
+      productsQuantity: populatedCartProducts
     });
 
     const cartClear = (id) =>
