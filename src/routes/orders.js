@@ -34,7 +34,9 @@ router.post('/', [isAuthenticated], async (req, res, next) => {
 
     res.status(200).json({
       success: true,
-      data: result
+      data: {
+        orderId: result._id
+      }
     });
 
     const cartId = cart._id.toString();
