@@ -10,11 +10,7 @@ router.post('/', [isAuthenticated], async (req, res, next) => {
     const cart = await CartModel.findOne({ userId: req.user }).populate({
       path: 'productsQuantity.productId',
       select: {
-        price: 1,
-        brand: 1,
-        productName: 1,
-        productRef: 1,
-        pictures: 1
+        price: 1
       }
     });
 
@@ -42,7 +38,6 @@ router.post('/', [isAuthenticated], async (req, res, next) => {
     });
 
     const cartId = cart._id.toString();
-    console.log(cartId);
 
     CartModel.findByIdAndDelete(cartId, function (err) {
       if (err) console.log(err);
@@ -57,7 +52,16 @@ router.get('/:orderId', [isAuthenticated], async (req, res, next) => {
   const { orderId } = req.params;
 
   try {
-    const result = await OrderModel.findById(orderId);
+    const result = await OrderModel.findById(orderId).populate({
+      path: 'productsQuantity.productId',
+      select: {
+        price: 1,
+        brand: 1,
+        productName: 1,
+        productRef: 1,
+        pictures: 1
+      }
+    });
 
     if (!result) throw new Error('order not found');
 
