@@ -390,7 +390,7 @@
 						"method": "PUT",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:4000/api/cart/add/60709d8f24a9615d9cff2b72",
+							"raw": "http://localhost:4000/api/cart/add/60709d8f24a9615d9cff2b69",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -400,7 +400,7 @@
 								"api",
 								"cart",
 								"add",
-								"60709d8f24a9615d9cff2b72"
+								"60709d8f24a9615d9cff2b69"
 							]
 						}
 					},
@@ -468,7 +468,7 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:4000/api/orders/add",
+							"raw": "http://localhost:4000/api/orders",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -476,8 +476,7 @@
 							"port": "4000",
 							"path": [
 								"api",
-								"orders",
-								"add"
+								"orders"
 							]
 						}
 					},
@@ -489,7 +488,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:4000/api/orders/607b3965ea66c632f0e0a732",
+							"raw": "http://localhost:4000/api/orders/607ed5c425ae063f7469a807",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -498,7 +497,7 @@
 							"path": [
 								"api",
 								"orders",
-								"607b3965ea66c632f0e0a732"
+								"607ed5c425ae063f7469a807"
 							]
 						}
 					},

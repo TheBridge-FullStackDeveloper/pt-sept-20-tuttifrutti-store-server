@@ -66,7 +66,6 @@ router.put('/add/:productId', [isAuthenticated], async (req, res, next) => {
     });
 
     if (isProductFound) {
-      console.log('found', newProducts);
       const result = await CartModel.findOneAndUpdate(
         { userId: req.user },
         { productsQuantity: newProducts },
