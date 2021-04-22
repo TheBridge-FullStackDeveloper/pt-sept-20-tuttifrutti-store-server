@@ -5,6 +5,20 @@ const CartModel = require('../../models/Carts');
 
 const { isAuthenticated } = require('../middlewares/authentication');
 
+router.get('/', [isAuthenticated], async (req, res, next) => {
+  try {
+    const userOrders = await OrderModel.find({ userId: req.user });
+
+    res.status(200).json({
+      success: true,
+      count: userOrders.length,
+      data: { userOrders }
+    });
+  } catch (error) {
+    next(error);
+  }
+});
+
 router.post('/', [isAuthenticated], async (req, res, next) => {
   try {
     const cart = await CartModel.findOne({ userId: req.user }).populate({

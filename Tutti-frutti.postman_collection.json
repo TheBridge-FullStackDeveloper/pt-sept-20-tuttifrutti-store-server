@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "340dabb8-ebbc-443e-96fe-2a448773baa8",
+		"_postman_id": "fd27c0c1-e449-48c3-ab58-fcc354b1db5b",
 		"name": "Tutti-frutti",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
@@ -500,6 +500,15 @@
 								"607ed5c425ae063f7469a807"
 							]
 						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get all orders",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": null
 					},
 					"response": []
 				}
