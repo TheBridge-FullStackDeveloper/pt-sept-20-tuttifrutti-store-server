@@ -21,29 +21,26 @@ router.post('/', [isAuthenticated], async (req, res, next) => {
     const totalPriceByProduct = populatedCartProducts.map(
       (product) => product.productId.price * product.quantity
     );
-    const totalPrice = totalPriceByProduct.reduce(function (a, b) {
-      return a + b;
-    });
+    const totalPrice = totalPriceByProduct.reduce((acc, next) => {
+      return acc + next;
+    }, 0);
 
     const result = await OrderModel.create({
       userId: req.user,
-      totalPrice: totalPrice,
+      totalPrice,
       state: 'pending-payment',
       productsQuantity: populatedCartProducts
     });
+
+    const cartId = cart._id.toString();
+
+    await CartModel.findByIdAndDelete(cartId);
 
     res.status(200).json({
       success: true,
       data: {
         orderId: result._id
       }
-    });
-
-    const cartId = cart._id.toString();
-
-    CartModel.findByIdAndDelete(cartId, function (err) {
-      if (err) console.log(err);
-      console.log('Successful deletion');
     });
   } catch (error) {
     next(error);
