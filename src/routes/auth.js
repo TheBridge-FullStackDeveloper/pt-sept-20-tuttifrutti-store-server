@@ -9,6 +9,12 @@ router.get('/profile', [isAuthenticated], (req, res) => {
     .json({ data: req.user || process.env.DUMMY_USER, success: true });
 });
 
+const getUserResponseData = (user) => ({
+  name: user.name,
+  surname: user.surname,
+  email: user.email
+});
+
 router.post('/register', (req, res, next) => {
   passport.authenticate('register', (err, user) => {
     if (err) {
@@ -18,7 +24,11 @@ router.post('/register', (req, res, next) => {
       if (loginErr) {
         return res.status(401).json({ data: loginErr.message, success: false });
       }
-      res.status(200).json({ data: user.email, success: true });
+
+      res.status(200).json({
+        data: getUserResponseData(user),
+        success: true
+      });
     });
   })(req, res, next);
 });
@@ -32,7 +42,11 @@ router.post('/login', (req, res, next) => {
       if (loginErr) {
         return res.status(401).json({ data: loginErr.message, success: false });
       }
-      res.status(200).json({ data: req.user.email, success: true });
+
+      res.status(200).json({
+        data: getUserResponseData(user),
+        success: true
+      });
     });
   })(req, res, next);
 });
