@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "fd27c0c1-e449-48c3-ab58-fcc354b1db5b",
+		"_postman_id": "d3fc7c1f-e571-4a63-a50c-b4bc89deec59",
 		"name": "Tutti-frutti",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
@@ -45,7 +45,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"email\": \"pepe1@hotmail.com\",\r\n    \"password\": \"3c8curn8erh\"\r\n}",
+							"raw": "{\r\n    \"email\": \"Douglas.Emmerich57@gmail.com\",\r\n    \"password\": \"6kvGIQTWCWkvO09\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -107,7 +107,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:4000/api/auth/profile",
+							"raw": "http://localhost:4000/api/auth/short-profile",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -116,7 +116,7 @@
 							"path": [
 								"api",
 								"auth",
-								"profile"
+								"short-profile"
 							]
 						}
 					},
@@ -192,7 +192,7 @@
 							"variable": [
 								{
 									"key": "productId",
-									"value": "6076f3368dce83c2455ae17f",
+									"value": "6083f9e67a89dfc17ad27556",
 									"description": "This is a product id from the products collection"
 								}
 							]
@@ -353,6 +353,40 @@
 						}
 					},
 					"response": []
+				},
+				{
+					"name": "Get product by product id",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": []
+						},
+						"url": {
+							"raw": "http://localhost:4000/api/products/:productId",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "4000",
+							"path": [
+								"api",
+								"products",
+								":productId"
+							],
+							"variable": [
+								{
+									"key": "productId",
+									"value": "60784b180a2168319b8a5d9a"
+								}
+							]
+						}
+					},
+					"response": []
 				}
 			]
 		},
@@ -390,7 +424,7 @@
 						"method": "PUT",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:4000/api/cart/add/60709d8f24a9615d9cff2b69",
+							"raw": "http://localhost:4000/api/cart/add/:productId?quantity=2",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -400,7 +434,19 @@
 								"api",
 								"cart",
 								"add",
-								"60709d8f24a9615d9cff2b69"
+								":productId"
+							],
+							"query": [
+								{
+									"key": "quantity",
+									"value": "2"
+								}
+							],
+							"variable": [
+								{
+									"key": "productId",
+									"value": "60784b180a2168319b8a5d99"
+								}
 							]
 						}
 					},
@@ -412,7 +458,7 @@
 						"method": "PUT",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:4000/api/cart/remove/60709d8f24a9615d9cff2b72",
+							"raw": "http://localhost:4000/api/cart/remove/:productId?quantity=86514",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -422,7 +468,19 @@
 								"api",
 								"cart",
 								"remove",
-								"60709d8f24a9615d9cff2b72"
+								":productId"
+							],
+							"query": [
+								{
+									"key": "quantity",
+									"value": "86514"
+								}
+							],
+							"variable": [
+								{
+									"key": "productId",
+									"value": "60784b180a2168319b8a5d9a"
+								}
 							]
 						}
 					},
@@ -488,7 +546,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:4000/api/orders/607ed5c425ae063f7469a807",
+							"raw": "http://localhost:4000/api/orders/:orderId",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -497,7 +555,13 @@
 							"path": [
 								"api",
 								"orders",
-								"607ed5c425ae063f7469a807"
+								":orderId"
+							],
+							"variable": [
+								{
+									"key": "orderId",
+									"value": "6083f8a62d63f8c10d595283"
+								}
 							]
 						}
 					},
@@ -508,7 +572,18 @@
 					"request": {
 						"method": "GET",
 						"header": [],
-						"url": null
+						"url": {
+							"raw": "http://localhost:4000/api/orders",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "4000",
+							"path": [
+								"api",
+								"orders"
+							]
+						}
 					},
 					"response": []
 				}
