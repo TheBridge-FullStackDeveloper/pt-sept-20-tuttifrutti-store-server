@@ -7,7 +7,16 @@ const { isAuthenticated } = require('../middlewares/authentication');
 
 router.get('/', [isAuthenticated], async (req, res, next) => {
   try {
-    const userOrders = await OrderModel.find({ userId: req.user });
+    const userOrders = await OrderModel.find({ userId: req.user }).populate({
+      path: 'productsQuantity.productId',
+      select: {
+        price: 1,
+        brand: 1,
+        productName: 1,
+        productRef: 1,
+        pictures: 1
+      }
+    });
 
     res.status(200).json({
       success: true,
