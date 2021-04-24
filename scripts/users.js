@@ -47,8 +47,8 @@ const createUsers = async (rowsCount, seed) => {
     if (entry === rnd) {
       console.log(
         `> Dummy user created! Use these values to login: ${JSON.stringify({
-          mail,
-          pswd
+          email: mail,
+          password: pswd
         })}`
       );
     }

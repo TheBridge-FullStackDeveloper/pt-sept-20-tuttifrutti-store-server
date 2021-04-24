@@ -2,6 +2,7 @@ const router = require('express').Router();
 
 const OrderModel = require('../../models/Orders');
 const CartModel = require('../../models/Carts');
+const ProductModel = require('../../models/Products');
 
 const { isAuthenticated } = require('../middlewares/authentication');
 
@@ -33,6 +34,7 @@ router.post('/', [isAuthenticated], async (req, res, next) => {
     const cart = await CartModel.findOne({ userId: req.user }).populate({
       path: 'productsQuantity.productId',
       select: {
+        stock: 1,
         price: 1
       }
     });
@@ -41,9 +43,24 @@ router.post('/', [isAuthenticated], async (req, res, next) => {
       .get('productsQuantity')
       .map((el) => el.toObject());
 
-    const totalPriceByProduct = populatedCartProducts.map(
+    const checkedProducts = populatedCartProducts.map((product) => {
+      if (product.productId.stock === 0) {
+        const error = new Error(
+          'Product with no stock cannot be added to order'
+        );
+        error.code = 403;
+        throw error;
+      }
+      if (product.quantity >= product.productId.stock) {
+        return { ...product, quantity: product.productId.stock };
+      }
+      return product;
+    });
+
+    const totalPriceByProduct = checkedProducts.map(
       (product) => product.productId.price * product.quantity
     );
+
     const totalPrice = totalPriceByProduct.reduce((acc, next) => {
       return acc + next;
     }, 0);
@@ -52,12 +69,21 @@ router.post('/', [isAuthenticated], async (req, res, next) => {
       userId: req.user,
       totalPrice,
       state: 'pending-payment',
-      productsQuantity: populatedCartProducts
+      productsQuantity: checkedProducts
     });
 
     const cartId = cart._id.toString();
 
     await CartModel.findByIdAndDelete(cartId);
+
+    for (const product of checkedProducts) {
+      const productId = product.productId._id;
+      const quantityToRemove = product.quantity;
+
+      await ProductModel.findByIdAndUpdate(productId, {
+        $inc: { stock: -quantityToRemove }
+      });
+    }
 
     res.status(200).json({
       success: true,
@@ -85,7 +111,11 @@ router.get('/:orderId', [isAuthenticated], async (req, res, next) => {
       }
     });
 
-    if (!result) throw new Error('order not found');
+    if (!result) {
+      const error = new Error('order not found');
+      error.code = 404;
+      throw error;
+    }
 
     res.status(200).json({
       success: true,
