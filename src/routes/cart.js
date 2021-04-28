@@ -165,4 +165,67 @@ router.put('/remove/:productId', [isAuthenticated], async (req, res, next) => {
   }
 });
 
+router.put('/update/:productId', [isAuthenticated], async (req, res, next) => {
+  const { productId } = req.params;
+  const { quantity = 1 } = req.query;
+
+  try {
+    const numQuantity = Number(quantity);
+
+    if (Number.isNaN(numQuantity)) {
+      const error = new Error('not a number');
+      error.code = 422;
+      throw error;
+    }
+
+    const userCart = await CartModel.findOne({ userId: req.user });
+
+    const prevProductsQuantity = userCart
+      .get('productsQuantity')
+      .map((el) => el.toObject());
+
+    let isProductFound = false;
+
+    const updateProducts = prevProductsQuantity.map((product) => {
+      if (product.productId.toString() === productId) {
+        isProductFound = true;
+        return { ...product, quantity: numQuantity };
+      }
+      return product;
+    });
+
+    if (isProductFound) {
+      const result = await CartModel.findOneAndUpdate(
+        { userId: req.user },
+        { productsQuantity: updateProducts },
+        { new: true }
+      );
+
+      return res.status(200).json({
+        success: true,
+        count: updateProducts.length,
+        data: result
+      });
+    }
+
+    const result = await CartModel.findOneAndUpdate(
+      { userId: req.user },
+      {
+        $push: { productsQuantity: { productId, quantity: numQuantity } }
+      },
+      { new: true }
+    );
+
+    const products = result.get('productsQuantity');
+
+    res.status(200).json({
+      success: true,
+      count: products.length,
+      data: { products }
+    });
+  } catch (error) {
+    next(error);
+  }
+});
+
 module.exports = router;
